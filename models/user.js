@@ -7,16 +7,18 @@ const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+      required: [true, "Name for user"],
+    },
     password: {
       type: String,
-      minlength: 6,
       required: [true, "Set password for user"],
     },
     email: {
       type: String,
       required: [true, "Email is required"],
       unique: true,
-      match: emailRegexp,
     },
     subscription: {
       type: String,
@@ -25,10 +27,29 @@ const userSchema = new Schema(
     },
     token: {
       type: String,
-      default: "",
+      default: null,
+    },
+    avatar: {
+      type: String,
+      default: null,
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verifyToken: {
+      type: String,
+      default: null,
+    },
+    confirmationOfVerification: {
+      type: Number,
+      default: 0,
     },
   },
-  { versionKey: false, timestamps: true }
+  {
+    versionKey: false,
+    timestamps: true,
+  }
 );
 
 userSchema.post("save", handleMongooseError);
