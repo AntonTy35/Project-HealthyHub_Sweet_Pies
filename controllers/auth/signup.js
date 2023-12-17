@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
 
 const { User } = require("../../models/user");
-const { HttpError, ctrlWrapper } = require("../../helpers");
+const { HttpError } = require("../../helpers");
 const sendEmail = require("../../utils/sendEmail");
 const { JWT_SECRET } = process.env;
 
@@ -39,7 +39,7 @@ const signup = async (req, res) => {
   const payload = {
     id: newUser._id,
   };
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "3h" });
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "23h" });
   newUser.token = token;
   await newUser.save();
 
@@ -57,4 +57,5 @@ const signup = async (req, res) => {
     },
   });
 };
-module.exports = { signup: ctrlWrapper(signup) };
+
+module.exports = signup;
