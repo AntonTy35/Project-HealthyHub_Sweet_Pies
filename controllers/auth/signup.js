@@ -23,8 +23,8 @@ const signup = async (req, res) => {
   const verificationEmail = {
     to: email,
     subject: "Verification email",
-    html: `<b>To confirm your registration please click on the <a href="http://localhost:3000/users/verify/${verificationToken} ">link</a>`,
-    text: `<b>To confirm your registration please open the link http://localhost:3000/users/verify/${verificationToken} `,
+    html: `<b>To confirm your registration please click on the <a href="http://localhost:8080/auth/verify/${verificationToken} ">link</a>`,
+    text: `<b>To confirm your registration please open the link http://localhost:8080/auth/verify/${verificationToken} `,
   };
 
   await sendEmail(verificationEmail);
