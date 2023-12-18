@@ -58,8 +58,9 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    verifyToken: {
+    verificationToken: {
       type: String,
+      required: [true, "Verify token is required"],
       default: null,
     },
     confirmationOfVerification: {
@@ -75,7 +76,7 @@ const userSchema = new Schema(
 
 userSchema.post("save", handleMongooseError);
 
-const registerSchema = Joi.object({
+const signupSchema = Joi.object({
   name: Joi.string().min(2).max(30).required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).max(16).required(),
@@ -87,7 +88,7 @@ const registerSchema = Joi.object({
   activity: Joi.number(),
 });
 
-const loginSchema = Joi.object({
+const signinSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
@@ -98,7 +99,7 @@ const userUpdate = Joi.object({
   age: Joi.number().required(),
 });
 
-const userSchemas = { loginSchema, registerSchema, userUpdate };
+const userSchemas = { signinSchema, signupSchema, userUpdate };
 
 const User = model("user", userSchema);
 

@@ -7,7 +7,7 @@ const gravatar = require("gravatar");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../helpers");
 const sendEmail = require("../../utils/sendEmail");
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET, BASE_URL } = process.env;
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -23,8 +23,8 @@ const signup = async (req, res) => {
   const verificationEmail = {
     to: email,
     subject: "Verification email",
-    html: `<b>To confirm your registration please click on the <a href="http://localhost:3000/users/verify/${verificationToken} ">link</a>`,
-    text: `<b>To confirm your registration please open the link http://localhost:3000/users/verify/${verificationToken} `,
+    html: `<b>To confirm your registration please click on the <a href="${BASE_URL}/auth/verify/${verificationToken} ">link</a>`,
+    text: `<b>To confirm your registration please open the link http://localhost:PORT/auth/verify/${verificationToken} `,
   };
 
   await sendEmail(verificationEmail);
@@ -45,8 +45,8 @@ const signup = async (req, res) => {
 
   res.status(201).json({
     user: {
-      email: newUser.email,
       name: newUser.name,
+      email: newUser.email,
       goal: newUser.goal,
       gender: newUser.gender,
       age: newUser.age,
