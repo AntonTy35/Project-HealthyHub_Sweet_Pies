@@ -3,34 +3,19 @@ const express = require("express");
 const validateBody = require("../../middlewares/validateBody");
 const authenticate = require("../../middlewares/authenticate");
 const { userSchemas } = require("../../models/user");
-const { ctrlWrapper } = require("../../helpers");
-const {
-  signup,
-  signin,
-  verify,
-  resVerifyEmail,
-  signout,
-} = require("../../controllers/auth");
-const forgotPassword = require("../../controllers/auth/forgot-password");
+
+const ctrl = require("../../controllers/auth");
 
 const router = express.Router();
 
-router.post(
-  "/signup",
-  validateBody(userSchemas.signupSchema),
-  ctrlWrapper(signup)
-);
-router.get("/verify/:verificationToken", ctrlWrapper(verify));
+router.post("/signup", validateBody(userSchemas.signupSchema), ctrl.signup);
+router.get("/verify/:verificationToken", ctrl.verify);
 
-router.post("/verify", ctrlWrapper(resVerifyEmail));
+router.post("/verify", ctrl.resVerifyEmail);
 
-router.post(
-  "/signin",
-  validateBody(userSchemas.signinSchema),
-  ctrlWrapper(signin)
-);
-router.post("/signout", authenticate, ctrlWrapper(signout));
+router.post("/signin", validateBody(userSchemas.signinSchema), ctrl.signin);
+router.post("/signout", authenticate, ctrl.signout);
 
-router.post("/forgot-password", ctrlWrapper(forgotPassword));
+router.post("/forgot-password", ctrl.forgotPassword);
 
 module.exports = router;
