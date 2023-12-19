@@ -17,8 +17,8 @@ const resVerifyEmail = async (req, res) => {
   const verificationEmail = {
     to: email,
     subject: "Verification email",
-    html: `<b>To confirm your registration please click on the <a href="${BASE_URL}/auth/verify/${verificationToken} ">link</a>`,
-    text: `<b>To confirm your registration please open the link http://localhost:PORT/auth/verify/${verificationToken} `,
+    html: `<b>To confirm your registration please click on the <a href="${BASE_URL}/api/auth/verify/${verificationToken} ">link</a>`,
+    text: `<b>To confirm your registration please open the link http://localhost:PORT/api/auth/verify/${verificationToken} `,
   };
 
   await sendEmail(verificationEmail);
