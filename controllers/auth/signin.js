@@ -28,7 +28,7 @@ const signin = async (req, res) => {
   await User.findByIdAndUpdate(user._id, { token }).exec();
 
   if (user.verify !== true) {
-    throw HttpError(401, "Your account is not verified");
+    throw HttpError(401, "Your account is not verify");
   }
 
   res.json({
