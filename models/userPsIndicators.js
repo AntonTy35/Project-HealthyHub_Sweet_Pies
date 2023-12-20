@@ -1,38 +1,41 @@
 const mongoose = require("mongoose");
 
-const userPsIndicatorsSchema = new mongoose.Schema(
+const UserPsIndicatorSchema = new mongoose.Schema(
   {
     owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-    required: true,
-  },    
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    name: {
+      type: String,
+    },
     age: {
       type: Number,
       required: [true, "Age is required"],
-      unique: true,
-        },
+    },
     gender: {
-      type: Boolean,
+      type: String,
+      enum: ["male", "female"],
       required: [true, "Gender is required"],
-      unique: true,
-        },
+    },
     height: {
       type: Number,
       required: [true, "Height is required"],
-      unique: true,
-        },
+    },
     weight: {
       type: Number,
       required: [true, "Weight is required"],
-      unique: true,
-        },    
+    },
     activity: {
-      type: String, 
-        enum: ["1", "2", "3", "4", "5"],
-        required: [true, "Activity is required"],
-        unique: true,
-        default: "1",
+      type: String,
+      enum: ["1", "2", "3", "4", "5"],
+      required: [true, "Activity is required"],
+      default: "1",
+    },
+    only_changes: {
+      type: Boolean,
+      default: "false",
     },
   },
   {
@@ -41,4 +44,4 @@ const userPsIndicatorsSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("userPsIndicators", userPsIndicatorsSchema);
+module.exports = mongoose.model("UserPsIndicator", UserPsIndicatorSchema);
