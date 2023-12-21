@@ -1,11 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const logger = require("morgan");
-
 const cors = require("cors");
 
 const authRouter = require("./routes/api/auth");
+const waterRouter = require("./routes/api/water");
 const {userRouter} = require("./routes/api/user");
+
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
+app.use("/api/user", waterRouter);
 app.use("/api/user", userRouter);
 
 app.use((req, res) => {

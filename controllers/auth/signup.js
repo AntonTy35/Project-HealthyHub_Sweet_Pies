@@ -44,6 +44,7 @@ const signup = async (req, res) => {
   await newUser.save();
 
   res.status(201).json({
+    token,
     user: {
       name: newUser.name,
       email: newUser.email,
