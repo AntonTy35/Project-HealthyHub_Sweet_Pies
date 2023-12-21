@@ -21,21 +21,20 @@ router.put(
   "/update",
   jsonParser,
   validateBody(userSchemas.userUpdateFiveKeys),
-  updateUser,
+  updateUser
 );
 router.put(
   "/goal",
   jsonParser,
   validateBody(userSchemas.userUpdateGoal),
-  updateUserGoal,
+  updateUserGoal
 );
 router.post(
   "/weight",
   jsonParser,
   validateBody(userSchemas.userUpdateWeight),
-  updateUserWeight,
+  updateUserWeight
 );
-
 
 router.get("/", listContacts);
 router.post("/currentOld", jsonParser, addUserPsIndicator);
@@ -45,5 +44,4 @@ router.put("/updateOld", jsonParser, updateContact);
 
 // router.post("/weight", validateBody(userSchemas.signupSchema), ctrl.weight);
 
-
-module.exports = {userRouter: router};
+module.exports = router;
