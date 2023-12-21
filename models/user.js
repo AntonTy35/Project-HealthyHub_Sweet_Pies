@@ -56,7 +56,7 @@ const userSchema = new Schema(
     },
     verify: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     verificationToken: {
       type: String,
@@ -99,7 +99,41 @@ const userUpdate = Joi.object({
   age: Joi.number().required(),
 });
 
-const userSchemas = { signinSchema, signupSchema, userUpdate };
+const userUpdateFive = Joi.object({
+  height: Joi.number().required(),
+  weight: Joi.number().required(),
+  age: Joi.number().required(),
+  gender: Joi.string().valid("male", "female"),
+  activity: Joi.number(),
+});
+
+const userUpdateFiveKeys = Joi.object()
+  .keys({
+    age: userUpdateFive.extract("age").optional(),
+    height: userUpdateFive.extract("height").optional(),
+    weight: userUpdateFive.extract("weight").optional(),
+    gender: userUpdateFive.extract("gender").optional(),
+    activity: userUpdateFive.extract("activity").optional(),
+  })
+  .or("age", "height", "weight", "gender", "activity");
+
+  const userUpdateGoal = Joi.object({
+    goal: Joi.number().required(),    
+  });
+
+  const userUpdateWeight = Joi.object({    
+    weight: Joi.number().required(),    
+  });
+
+const userSchemas = {
+  signinSchema,
+  signupSchema,
+  userUpdate,
+  userUpdateFive,
+  userUpdateFiveKeys,
+  userUpdateGoal,
+  userUpdateWeight,
+};
 
 const User = model("user", userSchema);
 
