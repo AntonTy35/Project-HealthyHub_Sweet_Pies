@@ -3,7 +3,7 @@ const Joi = require("joi");
 
 const { handleMongooseError } = require("../helpers");
 
-const emailRegexp =
+const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const userSchema = new Schema(
@@ -14,7 +14,7 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      match: emailRegexp,
+      match: emailRegex,
       required: [true, "Email is required"],
       unique: true,
     },
@@ -78,7 +78,7 @@ userSchema.post("save", handleMongooseError);
 
 const signupSchema = Joi.object({
   name: Joi.string().min(2).max(30).required(),
-  email: Joi.string().pattern(emailRegexp).required(),
+  email: Joi.string().pattern(emailRegex).required(),
   password: Joi.string().min(6).max(16).required(),
   goal: Joi.string(),
   gender: Joi.string().valid("male", "female"),
@@ -89,7 +89,7 @@ const signupSchema = Joi.object({
 });
 
 const signinSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
+  email: Joi.string().pattern(emailRegex).required(),
   password: Joi.string().min(6).required(),
 });
 

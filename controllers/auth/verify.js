@@ -6,7 +6,7 @@ const verify = async (req, res, next) => {
   try {
     const user = await User.findOne({ verificationToken: token }).exec();
 
-    if (!user === null) {
+    if (!user) {
       throw HttpError(404);
     }
     await User.findByIdAndUpdate(user._id, {
