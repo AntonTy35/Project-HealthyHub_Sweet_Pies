@@ -15,21 +15,17 @@ const weightSchema = new mongoose.Schema(
     name: {
       type: String,
     },
-    weight: {
-      type: Array,
-      one: {
-        type: Array,
-        two: {
-          type: Array,
-          tre: {
-            type: Object,
-            foo: { type: Number },
-            weight: { type: Number },
-          },
+    list: [
+      {
+        weight: {
+          type: Number,
         },
+        data: {
+          type: Date,
+          default: null,
+        },    
       },
-      default: null,
-    },
+    ],
   },
   {
     versionKey: false,
@@ -39,15 +35,27 @@ const weightSchema = new mongoose.Schema(
 
 weightSchema.post("save", handleMongooseError);
 
-const userUpdateWeight = Joi.object({
+const addSchema = Joi.object({
   weight: Joi.number(),
-  foo: Joi.number(),
+  data: Joi.number(),
 });
-
-const weightSchemas = {  
-  userUpdateWeight,
-};
 
 const Weight = model("weight", weightSchema);
 
-module.exports = { Weight, weightSchemas };
+module.exports = { Weight, addSchema };
+
+
+// weightSchema.post("save", handleMongooseError);
+
+// const userUpdateWeight = Joi.object({
+//   weight: Joi.number(),
+//   data: Joi.number(),
+// });
+
+// const weightSchemas = {
+//   userUpdateWeight,
+// };
+
+// const Weight = model("weight", weightSchema);
+
+// module.exports = { Weight, weightSchemas };

@@ -1,11 +1,8 @@
 const { User } = require("../../models/user");
 const ctrlWrapper = require("../../helpers/ctrlWrapper");
-// const { 
-//   updateUserPsIndicatorsSchema,
-// } = require("../utils/validation/validationUserPsIndicators");
 
-const updateUser = ctrlWrapper(async (req, res, next) => {
-  console.log("1.1 - це contact Controller - updateUser", req);
+
+const updateUser = ctrlWrapper(async (req, res, next) => {  
  
    const authHeader = req.headers["authorization"];
    const [bearer, token] = authHeader.split(" ", 2);
@@ -15,22 +12,10 @@ const updateUser = ctrlWrapper(async (req, res, next) => {
    const tasksUserPs = await User.find(task[0]._id).exec();
 
    const taskUserPs = { ...tasksUserPs };
-   const { age, height, weight, activity, gender } = taskUserPs[0];
-   const renewedUserId = taskUserPs[0]._id;
+  
+   const renewedUserId = taskUserPs[0]._id;  
 
-   console.log(
-     "1.2 - це Contact Services - updateContact - ",
-     { tasksUserPs },
-     { renewedUserId },
-     { age },
-     { height },
-     { weight },
-     { activity },
-     { gender }
-   ); 
-
-  const renewedTask = req.body;
-  console.log("1.3 - це Contact Services - updateContact - ", { renewedTask });
+  const renewedTask = req.body;  
   
   await User.findByIdAndUpdate(renewedUserId, renewedTask, {
     new: true,
@@ -41,12 +26,7 @@ const updateUser = ctrlWrapper(async (req, res, next) => {
   });  
 
   res.status(200).json(renewedTask);
-
-  console.log("це contact Controller - updateUser", {
-    url: req.originalUrl,
-    statusMessage: res.statusMessage,
-    statusCode: res.statusCode,
-  });
+  
 });
 
 module.exports = {
