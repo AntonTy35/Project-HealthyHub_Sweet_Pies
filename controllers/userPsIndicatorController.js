@@ -24,13 +24,11 @@ const listContacts = async (req, res, next) => {
   });
 };
 
-
 const addUserPsIndicator = controllerWrapper(async (req, res, next) => {
-
   const authHeader = req.headers["authorization"];
   const [bearer, token] = authHeader.split(" ", 2);
-  
-  console.log("1.1 - це contact Controller ", { token });  
+
+  console.log("1.1 - це contact Controller ", { token });
 
   const tasks = await UserPsIndicator.find().exec();
 
@@ -76,7 +74,7 @@ const updateContact = controllerWrapper(async (req, res, next) => {
       .send(response.error.details.map((err) => err.message).join(", "));
   }
 
-  const renewedTask = await updateContactService( req);
+  const renewedTask = await updateContactService(req);
   res.status(200).json(renewedTask);
 
   console.log("це contact Controller - updateContact", {

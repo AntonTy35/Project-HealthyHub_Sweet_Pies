@@ -117,13 +117,13 @@ const userUpdateFiveKeys = Joi.object()
   })
   .or("age", "height", "weight", "gender", "activity");
 
-  const userUpdateGoal = Joi.object({
-    goal: Joi.number().required(),    
-  });
+const userUpdateGoal = Joi.object({
+  goal: Joi.number().required(),
+});
 
-  const userUpdateWeight = Joi.object({    
-    weight: Joi.number().required(),    
-  });
+const userUpdateWeight = Joi.object({
+  weight: Joi.number().required(),
+});
 
 const userSchemas = {
   signinSchema,
