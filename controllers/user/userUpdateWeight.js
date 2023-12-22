@@ -13,11 +13,13 @@ const updateUserWeight = ctrlWrapper(async (req, res, next) => {
 
   const dataUserCurrent = { ...dataUser };
 
-  const userVariableValues = dataUserCurrent[0];
-  const renewedUserId = userVariableValues._id;
-  const userName = userVariableValues.name;
-
-  const renewedWeight = req.body;
+  const renewedWeight = req.body.weight;
+  console.log(
+    "1.1 - це updateUserWeight - ",
+    { userName },
+    { renewedUserId },
+    { renewedWeight }
+  );
 
   await User.findByIdAndUpdate(renewedUserId, renewedWeight, {
     new: true,

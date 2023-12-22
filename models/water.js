@@ -8,6 +8,7 @@ const waterSchema = new Schema(
     water: {
       type: Number,
       required: [true, "Water is required"],
+      default: 0,
     },
     owner: {
       type: Schema.Types.ObjectId,
