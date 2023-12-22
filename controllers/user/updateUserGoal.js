@@ -1,8 +1,7 @@
 const { User } = require("../../models/user");
 const ctrlWrapper = require("../../helpers/ctrlWrapper");
 
-const updateUserGoal = ctrlWrapper(async (req, res, next) => {  
-
+const updateUserGoal = ctrlWrapper(async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const [bearer, token] = authHeader.split(" ", 2);
   const tasks = await User.find({ token }).exec();
@@ -12,10 +11,14 @@ const updateUserGoal = ctrlWrapper(async (req, res, next) => {
 
   const taskUserPs = { ...tasksUserPs };
   const { goal } = taskUserPs[0];
-  const renewedUserId = taskUserPs[0]._id;  
+  const renewedUserId = taskUserPs[0]._id;
 
   const renewedTask = req.body;
-  console.log("1.3 - це Contact Services - updateContact - ", {goal}, { renewedTask });
+  console.log(
+    "1.3 - це Contact Services - updateContact - ",
+    { goal },
+    { renewedTask }
+  );
 
   await User.findByIdAndUpdate(renewedUserId, renewedTask, {
     new: true,
@@ -26,7 +29,6 @@ const updateUserGoal = ctrlWrapper(async (req, res, next) => {
   });
 
   res.status(200).json(renewedTask);
-  
 });
 
 module.exports = {

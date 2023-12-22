@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { validateBody, authenticate, isValidId } = require("../../middlewares");
 
-const addSchema = require("../../models/water");
+const { addSchema } = require("../../models/water");
 
 const ctrl = require("../../controllers/water");
 

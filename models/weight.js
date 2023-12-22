@@ -44,7 +44,7 @@ const userUpdateWeight = Joi.object({
   foo: Joi.number(),
 });
 
-const weightSchemas = {  
+const weightSchemas = {
   userUpdateWeight,
 };
 
