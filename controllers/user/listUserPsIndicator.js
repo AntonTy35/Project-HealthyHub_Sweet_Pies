@@ -1,7 +1,6 @@
 const {
-  listContactsService,  
+  listContactsService,
 } = require("../../services/userPsIndicatorService");
-
 
 const listContacts = async (req, res, next) => {
   const tasks = await listContactsService(req, res, next);
@@ -15,5 +14,5 @@ const listContacts = async (req, res, next) => {
 };
 
 module.exports = {
-  listContacts,  
+  listContacts,
 };

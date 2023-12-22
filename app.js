@@ -7,7 +7,6 @@ const authRouter = require("./routes/api/auth");
 const userRouter = require("./routes/api/user");
 const waterRouter = require("./routes/api/water");
 
-
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";

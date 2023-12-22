@@ -18,7 +18,7 @@ const updateUserWeight = ctrlWrapper(async (req, res, next) => {
 
   const renewedWeight = req.body.weight;
   console.log(
-    "1.1 - це updateUserWeight - ",    
+    "1.1 - це updateUserWeight - ",
     { userName },
     { renewedUserId },
     { renewedWeight }
@@ -41,16 +41,16 @@ const updateUserWeight = ctrlWrapper(async (req, res, next) => {
   if (tasksWeight.length !== 0) {
     return res.status(400).send("дозволено тільки редагування");
   }
-      
-    const newTask = {      
-      weight: renewedWeight,     
-      owner: renewedUserId,
-      name: userName,
-    };
 
-    console.log("addContactService 1.2 ", { newTask });
+  const newTask = {
+    weight: renewedWeight,
+    owner: renewedUserId,
+    name: userName,
+  };
 
-    await Weight.create(newTask);  
+  console.log("addContactService 1.2 ", { newTask });
+
+  await Weight.create(newTask);
 
   res.status(201).json(newTask);
 
@@ -60,7 +60,6 @@ const updateUserWeight = ctrlWrapper(async (req, res, next) => {
     statusCode: res.statusCode,
     body: req.body,
   });
-  
 });
 
 module.exports = {

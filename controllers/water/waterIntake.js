@@ -5,7 +5,6 @@ const waterIntake = async (req, res, next) => {
     const { _id: owner } = req.user;
     const { water } = req.body;
 
-    // Перевірка наявності коректних даних
     if (!owner || !water) {
       return res.status(400).json({ message: "Invalid input data" });
     }

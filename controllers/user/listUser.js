@@ -1,7 +1,6 @@
 const { User } = require("../../models/user");
 const ctrlWrapper = require("../../helpers/ctrlWrapper");
 
-
 const listUser = ctrlWrapper(async (req, res, next) => {
   console.log("1.1 - це contact Controller - listUser", req.body.email);
 
