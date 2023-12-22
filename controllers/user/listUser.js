@@ -1,12 +1,17 @@
 const { User } = require("../../models/user");
 const ctrlWrapper = require("../../helpers/ctrlWrapper");
 
-
 const listUser = ctrlWrapper(async (req, res, next) => {
-  console.log("1.1 - це contact Controller - listUser", req.body.email);
+  console.log("1.1 - це contact Controller - listUser", req.headers);
 
-  const userEmail = req.body.email;
-  const dataUser = await User.find({ email: userEmail }).exec();
+  const authHeader = req.headers["authorization"];
+  const [bearer, token] = authHeader.split(" ", 2);
+  const tasks = await User.find({ token }).exec();
+  const task = { ...tasks };
+  
+
+  const dataUser = await User.find(task[0]._id).exec();
+
   const dataUserCurrent = { ...dataUser };
 
   const userVariableValues = {
