@@ -22,4 +22,4 @@ const schemas = {
   subscriptionSchema,
 };
 
-module.exports = { schemas };
+module.exports = schemas;

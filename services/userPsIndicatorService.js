@@ -41,7 +41,7 @@ const addContactService = async (token, req) => {
 };
 
 const updateContactService = async (req) => {
-  console.log("1.1 - це Contact Services - updateContact - ",  req.body );
+  console.log("1.1 - це Contact Services - updateContact - ", req.body);
 
   const authHeader = req.headers["authorization"];
   const [bearer, token] = authHeader.split(" ", 2);
