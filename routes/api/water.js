@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateBody, authenticate, isValidId } = require("../../middlewares");
+const { validateBody, authenticate } = require("../../middlewares");
 
 const { addSchema } = require("../../models/water");
 
@@ -11,9 +11,9 @@ router.post(
   "/water-intake",
   authenticate,
   validateBody(addSchema),
-  ctrl.waterIntake
+  ctrl.updateWater
 );
 
-router.delete("/water-intake", authenticate, isValidId, ctrl.deleteWater);
+router.delete("/water-intake", authenticate, ctrl.deleteWater);
 
 module.exports = router;

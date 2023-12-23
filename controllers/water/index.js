@@ -1,8 +1,8 @@
 const { ctrlWrapper } = require("../../helpers");
-const deleteWater = require("./waterDelete");
-const waterIntake = require("./waterIntake");
+const deleteWater = require("./deleteWater");
+const updateWater = require("./updateWater");
 
 module.exports = {
-  waterIntake: ctrlWrapper(waterIntake),
+  updateWater: ctrlWrapper(updateWater),
   deleteWater: ctrlWrapper(deleteWater),
 };
