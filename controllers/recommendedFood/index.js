@@ -1,17 +1,16 @@
-const fs = require("node:fs");
+const { RecommendedFood } = require("../../models/recommendedFood");
+const { ctrlWrapper } = require("../../helpers");
 
-const getRecommendedFood = (req, res) => {
-  try {
-    const data = fs.readFileSync("RecommendedFood.json", {
-      encoding: "UTF-8",
-    });
-    const recommendedFood = JSON.parse(data);
+const getRecommendedFood = async (req, res) => {
+  const recommendedFood = await RecommendedFood.find({}, { _id: 0 }).exec();
 
-    res.json({ status: "success", code: 200, data: recommendedFood });
-  } catch (error) {
-    console.error("Error reading of JSON:", error);
-    res.status(500).json({ error: "Internal server" });
-  }
+  //   if (!recommendedFood) {
+  //     throw HttpError(404);
+  //   }
+
+  res.status(200).json(recommendedFood);
 };
 
-module.exports = { getRecommendedFood };
+module.exports = {
+  getRecommendedFood: ctrlWrapper(getRecommendedFood),
+};
