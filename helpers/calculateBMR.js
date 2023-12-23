@@ -1,4 +1,4 @@
-function calculateBMR(user) {
+const calculateBMR = (user) => {
   const { gender, age, height, weight, activity } = user;
   let BMR = 0;
 
@@ -21,6 +21,6 @@ function calculateBMR(user) {
   }
 
   return BMR;
-}
+};
 
 module.exports = calculateBMR;

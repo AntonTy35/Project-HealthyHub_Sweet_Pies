@@ -1,4 +1,5 @@
-const ctrlWrapper = require("../../helpers");
+const { ctrlWrapper } = require("../../helpers");
+
 const getAllCalories = require("./getAllCalories");
 const dailyGoalCalories = require("./dailyGoalCalories");
 

@@ -1,12 +1,12 @@
 const { RecommendedFood } = require("../../models/recommendedFood");
-const { ctrlWrapper } = require("../../helpers");
+const { ctrlWrapper, HttpError } = require("../../helpers");
 
-const getRecommendedFood = async (req, res) => {
-  const recommendedFood = await RecommendedFood.find({}, { _id: 0 }).exec();
+const getRecommendedFood = async (req, res, next) => {
+  const recommendedFood = await RecommendedFood.find({}).exec();
 
-  //   if (!recommendedFood) {
-  //     throw HttpError(404);
-  //   }
+  if (!recommendedFood) {
+    throw HttpError(404);
+  }
 
   res.status(200).json(recommendedFood);
 };

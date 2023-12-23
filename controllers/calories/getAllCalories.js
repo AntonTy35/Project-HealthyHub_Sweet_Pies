@@ -1,4 +1,4 @@
-const { Calories } = require("../../models");
+const { Calories } = require("../../models/calories");
 
 const getAllCalories = async (req, res) => {
   const { ownerId } = req.params;
