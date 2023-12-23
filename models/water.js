@@ -8,11 +8,15 @@ const waterSchema = new Schema(
     water: {
       type: Number,
       required: [true, "Water is required"],
-      default: 0,
     },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: true,
+    },
+    date: {
+      type: String,
+      require: true,
     },
   },
   {
@@ -25,6 +29,7 @@ waterSchema.post("save", handleMongooseError);
 
 const addSchema = Joi.object({
   water: Joi.number().required(),
+  date: Joi.string(),
 });
 
 const WaterModel = model("water", waterSchema);
