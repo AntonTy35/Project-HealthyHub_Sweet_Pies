@@ -2,14 +2,16 @@ const { User } = require("../../models/user");
 const ctrlWrapper = require("../../helpers/ctrlWrapper");
 
 const updateUser = ctrlWrapper(async (req, res, next) => {
+  // eslint-disable-next-line dot-notation
   const authHeader = req.headers["authorization"];
+  // eslint-disable-next-line no-unused-vars
   const [bearer, token] = authHeader.split(" ", 2);
-  const tasks = await User.find({token}).exec();
+  const tasks = await User.find({ token }).exec();
   const task = { ...tasks };
 
   console.log(
     "1.2 - це contact Controller - updateUser - ",
-    {token},
+    { token },
     { tasks },
     { task }
   );
