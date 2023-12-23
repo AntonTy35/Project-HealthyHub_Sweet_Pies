@@ -1,10 +1,5 @@
-const { model } = require("mongoose");
-const Joi = require("joi");
-
-const { handleMongooseError } = require("../helpers");
-// const { ObjectId } = require("mongodb");
-
 const mongoose = require("mongoose");
+
 const weightSchema = new mongoose.Schema(
   {
     owner: {
@@ -14,22 +9,20 @@ const weightSchema = new mongoose.Schema(
     },
     name: {
       type: String,
+      required: true,
     },
-    weight: {
-      type: Array,
-      one: {
-        type: Array,
-        two: {
-          type: Array,
-          tre: {
-            type: Object,
-            foo: { type: Number },
-            weight: { type: Number },
-          },
+    list: [
+      {
+        weight: {
+          type: Number,
+          required: true,
+        },
+        date: {
+          type: Date,
+          default: Date.now,
         },
       },
-      default: null,
-    },
+    ],
   },
   {
     versionKey: false,
@@ -37,17 +30,6 @@ const weightSchema = new mongoose.Schema(
   }
 );
 
-weightSchema.post("save", handleMongooseError);
+const Weight = mongoose.model("weight", weightSchema);
 
-const userUpdateWeight = Joi.object({
-  weight: Joi.number(),
-  foo: Joi.number(),
-});
-
-const weightSchemas = {
-  userUpdateWeight,
-};
-
-const Weight = model("weight", weightSchema);
-
-module.exports = { Weight, weightSchemas };
+module.exports = { Weight };
