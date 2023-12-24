@@ -1,12 +1,12 @@
-const { WaterModel } = require("../../models");
+const { Food } = require("../../models");
 const formattedDate = require("../../utils/formattedDate");
 
-const deleteWater = async (req, res, next) => {
+const deleteFood = async (req, res, next) => {
   const { _id: owner } = req.user;
 
   const currentDate = formattedDate();
   try {
-    const result = await WaterModel.findOneAndDelete({
+    const result = await Food.findOneAndDelete({
       owner,
       date: currentDate,
     }).exec();
@@ -15,13 +15,13 @@ const deleteWater = async (req, res, next) => {
       res.status(200).json({
         status: "success",
         code: 200,
-        message: "Water consumption for the current date deleted successfully",
+        message: "Food consumption for the current date deleted successfully",
       });
     } else {
       res.status(404).json({
         status: "error",
         code: 404,
-        message: "Water consumption for the current date not found",
+        message: "Food consumption for the current date not found",
       });
     }
   } catch (error) {
@@ -34,4 +34,4 @@ const deleteWater = async (req, res, next) => {
   }
 };
 
-module.exports = deleteWater;
+module.exports = deleteFood;
