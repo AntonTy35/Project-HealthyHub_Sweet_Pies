@@ -9,14 +9,14 @@ const router = express.Router();
 router.post(
   "/food-intake",
   authenticate,
-  validateBody(foodSchemas),
+  validateBody(foodSchemas.createFoodSchema),
   ctrl.createFood
 );
 
 router.put(
   "/food-intake/:id",
   authenticate,
-  validateBody(foodSchemas),
+  validateBody(foodSchemas.updateFoodSchema),
   ctrl.updateFood
 );
 
