@@ -24,6 +24,8 @@ const userSchema = new Schema(
     },
     goal: {
       type: String,
+      enum: ["1", "2", "3"],
+      default: "1",
     },
     gender: {
       type: String,
@@ -48,7 +50,28 @@ const userSchema = new Schema(
     },
     activity: {
       type: Number,
-      default: null,
+      enum: [1, 2, 3, 4, 5],
+      default: 1,
+    },
+    BMR: {
+      type: Number,
+      default: 2000,
+    },
+    rateWater: {
+      type: Number,
+      default: 1500,
+    },
+    protein: {
+      type: Number,
+      default: 120,
+    },
+    fat: {
+      type: Number,
+      default: 40,
+    },
+    carbs: {
+      type: Number,
+      default: 270,
     },
     avatarURL: {
       type: String,
@@ -80,12 +103,12 @@ const signupSchema = Joi.object({
   name: Joi.string().min(2).max(30).required(),
   email: Joi.string().pattern(emailRegex).required(),
   password: Joi.string().min(6).max(16).required(),
-  goal: Joi.string(),
+  goal: Joi.string().valid("1", "2", "3"),
   gender: Joi.string().valid("male", "female"),
   age: Joi.number(),
   height: Joi.number(),
   weight: Joi.number(),
-  activity: Joi.number(),
+  activity: Joi.number().valid(1, 2, 3, 4, 5),
 });
 
 const signinSchema = Joi.object({
@@ -104,7 +127,8 @@ const userUpdateFive = Joi.object({
   weight: Joi.number().required(),
   age: Joi.number().required(),
   gender: Joi.string().valid("male", "female"),
-  activity: Joi.number(),
+  activity: Joi.number().valid(1, 2, 3, 4, 5),
+  goal: Joi.string().valid("1", "2", "3"),
 });
 
 const userUpdateFiveKeys = Joi.object()
@@ -114,11 +138,12 @@ const userUpdateFiveKeys = Joi.object()
     weight: userUpdateFive.extract("weight").optional(),
     gender: userUpdateFive.extract("gender").optional(),
     activity: userUpdateFive.extract("activity").optional(),
+    goal: userUpdateFive.extract("goal").optional(),
   })
-  .or("age", "height", "weight", "gender", "activity");
+  .or("age", "height", "weight", "gender", "activity", "goal");
 
 const userUpdateGoal = Joi.object({
-  goal: Joi.number().required(),
+  goal: Joi.string().valid("1", "2", "3"),
 });
 
 const userUpdateWeight = Joi.object({
