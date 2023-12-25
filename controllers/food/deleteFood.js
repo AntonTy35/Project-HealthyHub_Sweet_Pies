@@ -29,7 +29,7 @@ const deleteFood = async (req, res, next) => {
     res.status(500).json({
       status: "error",
       code: 500,
-      message: "Some problem with deleting water consumption",
+      message: "Some problem with deleting food consumption",
     });
   }
 };

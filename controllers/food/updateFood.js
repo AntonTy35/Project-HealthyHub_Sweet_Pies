@@ -12,7 +12,7 @@ const updateFood = async (req, res, next) => {
     throw HttpError(404, "Not found");
   }
 
-  return res.json({
+  return res.status(201).json({
     _id: updatedFood._id,
     foodType: updatedFood.foodType,
     foodName: updatedFood.foodName,
