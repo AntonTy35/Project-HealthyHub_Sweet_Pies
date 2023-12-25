@@ -39,10 +39,10 @@ const foodSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
-    // date: {
-    //   type: String,
-    //   required: [true, "Date is required"],
-    // },
+    date: {
+      type: String,
+      required: [true, "Date is required"],
+    },
   },
   { versionKey: false, timestamps: true }
 );

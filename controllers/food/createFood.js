@@ -1,9 +1,12 @@
 const { Food } = require("../../models");
+const formattedDate = require("../../utils/formattedDate");
 
 const createFood = async (req, res, next) => {
   const { _id: owner } = req.user;
 
-  const newFood = await Food.create({ ...req.body, owner });
+  const currentDate = formattedDate();
+
+  const newFood = await Food.create({ ...req.body, owner, date: currentDate });
 
   res.status(201).json({
     _id: newFood._id,
@@ -13,7 +16,7 @@ const createFood = async (req, res, next) => {
     protein: newFood.protein,
     fat: newFood.fat,
     calories: newFood.calories,
-    createdAt: newFood.createdAt,
+    date: currentDate,
   });
 };
 

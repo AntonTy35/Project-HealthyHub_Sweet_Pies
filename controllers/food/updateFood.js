@@ -20,7 +20,6 @@ const updateFood = async (req, res, next) => {
     protein: updatedFood.protein,
     fat: updatedFood.fat,
     calories: updatedFood.calories,
-    createdAt: updatedFood.createdAt,
   });
 };
 
