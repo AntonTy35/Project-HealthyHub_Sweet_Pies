@@ -462,7 +462,7 @@
                   "goal": {
                     "type": "string",
                     "description": "User's new goal",
-                    "example": "lose fat"
+                    "example": "1"
                   }
                 },
                 "required": ["goal"]
@@ -491,7 +491,7 @@
                       "properties": {
                         "goal": {
                           "type": "string",
-                          "example": "lose fat"
+                          "example": "1"
                         }
                       }
                     }
@@ -563,7 +563,7 @@
                       "properties": {
                         "date": {
                           "type": "string",
-                          "example": "22.10.2023"
+                          "example": "25.12.2023"
                         },
                         "weight": {
                           "type": "number",
@@ -1112,7 +1112,6 @@
         }
       }
     },
-
     "/api/recommended-food": {
       "get": {
         "tags": ["Recommended Food"],
@@ -1288,7 +1287,6 @@
           }
         }
       },
-
       "SigninRequest": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
@@ -1359,12 +1357,6 @@
         },
         "required": ["token", "user"]
       },
-
-      "null": {},
-      "null1": {},
-      "null2": {},
-      "null3": {},
-
       "WaterIntakeRequest": {
         "type": "object",
         "properties": {
@@ -1389,7 +1381,7 @@
                 "type": "string",
                 "description": "The date of the water intake."
               },
-              "value": {
+              "water": {
                 "type": "number",
                 "description": "The value of the water intake."
               }
@@ -1449,113 +1441,62 @@
           "data": {
             "type": "object",
             "properties": {
-              "water": {
-                "type": "object",
-                "properties": {
-                  "lastMonth": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "date": {
-                          "type": "string",
-                          "description": "The date of the water intake."
-                        },
-                        "value": {
-                          "type": "number",
-                          "description": "The value of the water intake."
-                        }
-                      }
-                    }
-                  },
-                  "lastYear": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "date": {
-                          "type": "string",
-                          "description": "The date of the water intake."
-                        },
-                        "value": {
-                          "type": "number",
-                          "description": "The value of the water intake."
-                        }
-                      }
+              "today": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "water": {
+                      "type": "number",
+                      "description": "The value of the water intake."
+                    },
+                    "weight": {
+                      "type": "number",
+                      "description": "The value of the weight."
+                    },
+                    "calories": {
+                      "type": "number",
+                      "description": "The value of the calories."
                     }
                   }
                 }
               },
-              "weight": {
-                "type": "object",
-                "properties": {
-                  "lastMonth": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "date": {
-                          "type": "string",
-                          "description": "The date of the weight."
-                        },
-                        "value": {
-                          "type": "number",
-                          "description": "The value of the weight."
-                        }
-                      }
-                    }
-                  },
-                  "lastYear": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "date": {
-                          "type": "string",
-                          "description": "The date of the weight."
-                        },
-                        "value": {
-                          "type": "number",
-                          "description": "The value of the weight."
-                        }
-                      }
+              "lastMonth": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "water": {
+                      "type": "number",
+                      "description": "The value of the water intake."
+                    },
+                    "weight": {
+                      "type": "number",
+                      "description": "The value of the weight."
+                    },
+                    "calories": {
+                      "type": "number",
+                      "description": "The value of the calories."
                     }
                   }
                 }
               },
-              "calories": {
-                "type": "object",
-                "properties": {
-                  "lastMonth": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "date": {
-                          "type": "string",
-                          "description": "The date of the calories."
-                        },
-                        "value": {
-                          "type": "number",
-                          "description": "The value of the calories."
-                        }
-                      }
-                    }
-                  },
-                  "lastYear": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "date": {
-                          "type": "string",
-                          "description": "The date of the calories."
-                        },
-                        "value": {
-                          "type": "number",
-                          "description": "The value of the calories."
-                        }
-                      }
+              "lastYear": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "water": {
+                      "type": "number",
+                      "description": "The value of the water intake."
+                    },
+                    "weight": {
+                      "type": "number",
+                      "description": "The value of the weight."
+                    },
+                    "calories": {
+                      "type": "number",
+                      "description": "The value of the calories."
                     }
                   }
                 }
@@ -1564,42 +1505,37 @@
           }
         }
       },
-      "GoalRequest": {
+      "UserGoalRequest": {
         "type": "object",
         "properties": {
           "goal": {
             "type": "string",
             "description": "Value of goal",
-            "example": "Lose Fat",
-            "enum": ["Lose Fat", "Gain Muscle", "Maintain Weight"]
+            "example": "2",
+            "enum": ["1", "2", "3"]
           }
         },
         "description": "Data for updating information about goal."
       },
-      "GoalResponse": {
+      "UserGoalResponse": {
         "type": "object",
         "properties": {
           "status": {
             "type": "string",
             "description": "The status of the response (e.g., 'success')."
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "goal": {
-                "type": "string",
-                "description": "The value of the goal.",
-                "example": "Lose Fat",
-                "enum": ["Lose Fat", "Gain Muscle", "Maintain Weight"]
-              }
-            }
+          "goal": {
+            "type": "string",
+            "description": "The value of the goal.",
+            "example": "2",
+            "enum": ["1", "2", "3"]
           }
         }
       },
       "DailyGoalRequest": {
         "type": "object",
         "properties": {
-          "value": {
+          "goal": {
             "type": "number",
             "description": "Value of daily goal"
           }
@@ -1609,56 +1545,38 @@
       "DailyGoalResponse": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "string",
-            "description": "The status of the response (e.g., 'success')."
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "number",
-                "description": "The value of the daily goal."
-              }
-            }
+          "goal": {
+            "type": "number",
+            "description": "The value of the daily goal."
           }
         }
       },
       "FoodIntakeRequest": {
         "type": "object",
         "properties": {
-          "type": {
+          "foodType": {
             "type": "string",
             "description": "Type of food"
           },
-          "product": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Name of the product"
-              },
-              "carbonohidrates": {
-                "type": "number",
-                "description": "Carbonohidrates content"
-              },
-              "protein": {
-                "type": "number",
-                "description": "Protein content"
-              },
-              "fat": {
-                "type": "number",
-                "description": "Fat content"
-              },
-              "calories": {
-                "type": "number",
-                "description": "Calories content"
-              }
-            }
+          "foodName": {
+            "type": "string",
+            "description": "Name of the food"
           },
-          "totalCalories": {
+          "carbohydrate": {
             "type": "number",
-            "description": "Total calories"
+            "description": "Carbonohidrates content"
+          },
+          "protein": {
+            "type": "number",
+            "description": "Protein content"
+          },
+          "fat": {
+            "type": "number",
+            "description": "Fat content"
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories content"
           }
         },
         "description": "Data for updating information about food intake."
@@ -1666,136 +1584,102 @@
       "FoodIntakeResponse": {
         "type": "object",
         "properties": {
-          "status": {
+          "_id": {
             "type": "string",
-            "description": "The status of the response (e.g., 'success')."
+            "description": "Type of food"
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "description": "Type of food"
-              },
-              "product": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "Name of the product"
-                  },
-                  "carbonohidrates": {
-                    "type": "number",
-                    "description": "Carbonohidrates content"
-                  },
-                  "protein": {
-                    "type": "number",
-                    "description": "Protein content"
-                  },
-                  "fat": {
-                    "type": "number",
-                    "description": "Fat content"
-                  },
-                  "calories": {
-                    "type": "number",
-                    "description": "Calories content"
-                  }
-                }
-              },
-              "totalCalories": {
-                "type": "number",
-                "description": "Total calories"
-              }
-            }
-          }
-        }
-      },
-      "Food": {
-        "type": "object",
-        "properties": {
-          "name": {
+          "foodType": {
             "type": "string",
-            "description": "Name of the product"
+            "description": "Type of food"
           },
-          "amount": {
+          "foodName": {
             "type": "string",
-            "description": "Amount of the product"
+            "description": "Name of the food"
           },
-          "img": {
-            "type": "string",
-            "description": "Image of the product"
+          "carbohydrate": {
+            "type": "number",
+            "description": "Carbonohidrates content"
+          },
+          "protein": {
+            "type": "number",
+            "description": "Protein content"
+          },
+          "fat": {
+            "type": "number",
+            "description": "Fat content"
           },
           "calories": {
             "type": "number",
             "description": "Calories content"
           },
-          "nutrition": {
-            "type": "object",
-            "properties": {
-              "carbohydrates": {
-                "type": "number",
-                "description": "Carbonohidrates content"
-              },
-              "protein": {
-                "type": "number",
-                "description": "Protein content"
-              },
-              "fat": {
-                "type": "number",
-                "description": "Fat content"
-              }
-            }
+          "date": {
+            "type": "string",
+            "description": "Date"
           }
         }
       },
-      "FoodResponse": {
+      "FoodUpdateRequest": {
         "type": "object",
         "properties": {
-          "status": {
+          "foodType": {
             "type": "string",
-            "description": "The status of the response (e.g., 'success')."
+            "description": "Type of food"
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Name of the product"
-              },
-              "amount": {
-                "type": "string",
-                "description": "Amount of the product"
-              },
-              "img": {
-                "type": "string",
-                "description": "Image of the product"
-              },
-              "calories": {
-                "type": "number",
-                "description": "Calories content"
-              },
-              "nutrition": {
-                "type": "object",
-                "properties": {
-                  "carbohydrates": {
-                    "type": "number",
-                    "description": "Carbonohidrates content"
-                  },
-                  "protein": {
-                    "type": "number",
-                    "description": "Protein content"
-                  },
-                  "fat": {
-                    "type": "number",
-                    "description": "Fat content"
-                  }
-                }
-              }
-            }
+          "foodName": {
+            "type": "string",
+            "description": "Name of the food"
+          },
+          "carbohydrate": {
+            "type": "number",
+            "description": "Carbonohidrates content"
+          },
+          "protein": {
+            "type": "number",
+            "description": "Protein content"
+          },
+          "fat": {
+            "type": "number",
+            "description": "Fat content"
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories content"
           }
         }
       },
-
+      "FoodUpdateResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Type of food"
+          },
+          "foodType": {
+            "type": "string",
+            "description": "Type of food"
+          },
+          "foodName": {
+            "type": "string",
+            "description": "Name of the food"
+          },
+          "carbohydrate": {
+            "type": "number",
+            "description": "Carbonohidrates content"
+          },
+          "protein": {
+            "type": "number",
+            "description": "Protein content"
+          },
+          "fat": {
+            "type": "number",
+            "description": "Fat content"
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories content"
+          }
+        }
+      },
       "EmailRequest": {
         "type": "object",
         "required": ["email"],
@@ -1845,18 +1729,6 @@
       "UpdateUserInfoRequest": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "description": "The name of the user."
-          },
-          "goal": {
-            "type": "string",
-            "description": "The user's goal."
-          },
-          "gender": {
-            "type": "string",
-            "description": "The user's gender."
-          },
           "age": {
             "type": "integer",
             "description": "The user's age."
@@ -1872,50 +1744,44 @@
           "activity": {
             "type": "string",
             "description": "The user's activity level."
+          },
+          "gender": {
+            "type": "string",
+            "description": "The user's gender."
+          },
+          "goal": {
+            "type": "string",
+            "description": "The user's goal."
           }
         },
         "description": "Data for updating information about a user."
       },
-
       "UpdateUserInfoResponse": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "string",
-            "description": "The status of the response (e.g., 'success')."
+          "age": {
+            "type": "integer",
+            "description": "The user's age."
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "The user's updated name."
-              },
-              "goal": {
-                "type": "string",
-                "description": "The user's updated goal."
-              },
-              "gender": {
-                "type": "string",
-                "description": "The user's updated gender."
-              },
-              "age": {
-                "type": "integer",
-                "description": "The user's updated age."
-              },
-              "height": {
-                "type": "number",
-                "description": "The user's updated height in centimeters."
-              },
-              "weight": {
-                "type": "number",
-                "description": "The user's updated weight in kilograms."
-              },
-              "activity": {
-                "type": "string",
-                "description": "The user's updated activity level."
-              }
-            }
+          "height": {
+            "type": "number",
+            "description": "The user's height in centimeters."
+          },
+          "weight": {
+            "type": "number",
+            "description": "The user's weight in kilograms."
+          },
+          "activity": {
+            "type": "string",
+            "description": "The user's activity level."
+          },
+          "gender": {
+            "type": "string",
+            "description": "The user's gender."
+          },
+          "goal": {
+            "type": "string",
+            "description": "The user's goal."
           }
         }
       },
@@ -2181,7 +2047,6 @@
           }
         }
       },
-
       "ForgotPasswordResponse": {
         "type": "object",
         "properties": {
@@ -2192,7 +2057,7 @@
         },
         "description": "Response indicating if the password reset email was sent."
       },
-      "LogoutRequest": {
+      "SignoutRequest": {
         "type": "object",
         "required": ["userId"],
         "properties": {
@@ -2202,7 +2067,7 @@
           }
         }
       },
-      "LogoutResponse": {
+      "SignoutResponse": {
         "type": "object",
         "properties": {
           "code": {
