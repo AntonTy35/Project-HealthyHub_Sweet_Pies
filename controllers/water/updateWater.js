@@ -1,7 +1,6 @@
 const { WaterModel } = require("../../models/water");
 const formattedDate = require("../../utils/formattedDate");
 
-// Функція для створення нового запису води
 const createNewWaterEntry = async (owner, body) => {
   const currentDate = formattedDate();
   const newWater = await WaterModel.create({
@@ -16,7 +15,6 @@ const createNewWaterEntry = async (owner, body) => {
   };
 };
 
-// Функція для оновлення існуючого запису води
 const updateExistingWaterEntry = async (existingWater, body) => {
   existingWater.water += Number(body.water);
   await existingWater.save();
@@ -33,7 +31,6 @@ const updateWater = async (req, res, next) => {
     const body = req.body;
     const currentDate = formattedDate();
 
-    // Пошук існуючого запису води за вказаною датою
     const existingWater = await WaterModel.findOne({
       owner,
       date: currentDate,
@@ -42,13 +39,11 @@ const updateWater = async (req, res, next) => {
     let responseData;
 
     if (!existingWater) {
-      // Якщо запис не існує, створити новий
       responseData = await createNewWaterEntry(owner, body);
       res
         .status(201)
         .json({ status: "success", code: 201, data: responseData });
     } else {
-      // Якщо запис існує, оновити його
       responseData = await updateExistingWaterEntry(existingWater, body);
       res
         .status(200)
