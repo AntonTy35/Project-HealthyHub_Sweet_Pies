@@ -56,13 +56,7 @@
                 "age": 36,
                 "height": 172,
                 "weight": 90,
-                "activity": 3,
-                "BMR": 0,
-                "rateWater": 0,
-                "protein": 0,
-                "fat": 0,
-                "carbs": 0,
-                "avatarURL": "//www.gravatar.com/avatar/308ddee7715dfc790fbc7a04b303e1ca"
+                "activity": 3
               }
             }
           }
@@ -75,6 +69,20 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SignupResponse"
+              },
+              "example": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGNmYTNmMzg2YzhlMWYzM2M3MTcxNiIsImlhdCI6MTcwMzczNzkxOSwiZXhwIjoxNzAzOTk3MTE5fQ.roGTip4cIZQN0qFVIT4hOsadPkYk9odC99ZiG_HYhUU",
+                "user": {
+                  "name": "Sweet Pie",
+                  "email": "sweetpie@goit.ua",
+                  "goal": "1",
+                  "gender": "male",
+                  "age": 36,
+                  "height": 172,
+                  "weight": 90,
+                  "activity": 3,
+                  "avatarURL": "//www.gravatar.com/avatar/71fa10732d0099a8c2c897cba9e7797c"
+                }
               }
             }
           }
@@ -83,7 +91,7 @@
           "description": "Bad request (invalid request body)"
         },
         "409": {
-          "description": "Email already in use"
+          "description": "Conflict (Email already in use)"
         }
       }
     },
@@ -167,6 +175,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SigninRequest"
+              },
+              "example": {
+                "email": "sweetpie@goit.ua",
+                "password": "qwe123456"
               }
             }
           }
@@ -178,6 +190,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SigninResponse"
+                },
+                "example": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGNmYTNmMzg2YzhlMWYzM2M3MTcxNiIsImlhdCI6MTcwMzczODUwMywiZXhwIjoxNzAzOTk3NzAzfQ.0T18F7SAMZKRtkWC8ku1oeQJh8bJh78XalI4yQHoPYw",
+                  "user": {
+                    "name": "Sweet Pie",
+                    "email": "sweetpie@goit.ua",
+                    "goal": "1",
+                    "gender": "male",
+                    "age": 36,
+                    "height": 172,
+                    "weight": 90,
+                    "activity": 3,
+                    "avatarURL": "//www.gravatar.com/avatar/71fa10732d0099a8c2c897cba9e7797c"
+                  }
                 }
               }
             }
@@ -298,28 +324,28 @@
                   "$ref": "#/components/schemas/CurrentResponse"
                 },
                 "example": {
-                  "_id": "65894da35e80ecc0e9526c7e",
+                  "_id": "658cfa3f386c8e1f33c71716",
                   "name": "Sweet Pie",
                   "email": "sweetpie@goit.ua",
-                  "password": "$2b$10$ALuIZ33khGw6VVCHN5YZzuA9MrPx26L5Ie6VphfgTXa6n2ja9UWFe",
+                  "password": "$2b$10$31mhHur3UcATUvm7kqaXLO//GdlVpGZYLpRJ0VFuIuH.cYLVdXEyC",
                   "goal": "1",
                   "gender": "male",
                   "age": 36,
                   "height": 172,
                   "weight": 90,
-                  "token": "strieyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODk0ZGEzNWU4MGVjYzng",
-                  "activity": "1",
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGNmYTNmMzg2YzhlMWYzM2M3MTcxNiIsImlhdCI6MTcwMzczODUwMywiZXhwIjoxNzAzOTk3NzAzfQ.0T18F7SAMZKRtkWC8ku1oeQJh8bJh78XalI4yQHoPYw",
+                  "activity": 3,
                   "BMR": 2000,
                   "rateWater": 1500,
                   "protein": 120,
                   "fat": 40,
                   "carbs": 270,
-                  "avatarUrl": "//www.gravatar.com/avatar/55447609b6d5f93aa67859e910446536",
+                  "avatarURL": "//www.gravatar.com/avatar/71fa10732d0099a8c2c897cba9e7797c",
                   "verify": true,
-                  "verificationToken": "33df6c3a-7df5-42e5-a835-41e920499957",
+                  "verificationToken": "aee17c3e-b8ab-41a2-ad91-006e44791a30",
                   "confirmationOfVerification": 0,
-                  "createdAt": "2023-12-25T09:38:43.872Z",
-                  "updatedAt": "2023-12-25T09:38:43.897Z"
+                  "createdAt": "2023-12-28T04:31:59.109Z",
+                  "updatedAt": "2023-12-28T04:41:43.538Z"
                 }
               }
             }
@@ -361,10 +387,10 @@
               "example": {
                 "goal": "1",
                 "gender": "male",
-                "age": 36,
+                "age": 46,
                 "height": 172,
-                "weight": 90,
-                "activity": 3
+                "weight": 95,
+                "activity": 5
               }
             }
           }
@@ -380,10 +406,10 @@
                 "example": {
                   "goal": "1",
                   "gender": "male",
-                  "age": 36,
+                  "age": 46,
                   "height": 172,
-                  "weight": 90,
-                  "activity": 3
+                  "weight": 95,
+                  "activity": 5
                 }
               }
             }
@@ -426,7 +452,7 @@
                 "$ref": "#/components/schemas/Goal"
               },
               "example": {
-                "goal": "1"
+                "goal": "3"
               }
             }
           }
@@ -440,7 +466,7 @@
                   "$ref": "#/components/schemas/Goal"
                 },
                 "example": {
-                  "goal": "1"
+                  "goal": "3"
                 }
               }
             }
@@ -494,9 +520,11 @@
                   "$ref": "#/components/schemas/WeightResponse"
                 },
                 "example": {
-                  "weight": 90,
-                  "_id": "65894da35e80ecc0e9526c7e",
-                  "date": "2023-12-27T04:07:38.857Z"
+                  "weight": {
+                    "weight": 110
+                  },
+                  "owner": "658cfa3f386c8e1f33c71716",
+                  "name": "Sweet Pie"
                 }
               }
             }
@@ -537,7 +565,7 @@
               },
               "example": {
                 "foodType": "breakfast",
-                "name": "soup",
+                "foodName": "soup",
                 "carbohydrate": 25,
                 "protein": 20,
                 "fat": 30,
@@ -555,14 +583,14 @@
                   "$ref": "#/components/schemas/FoodResponse"
                 },
                 "example": {
-                  "_id": "65894da35e80ecc0e9526c7e",
+                  "_id": "658d019e13724e751f461587",
                   "foodType": "breakfast",
-                  "name": "soup",
+                  "foodName": "soup",
                   "carbohydrate": 25,
                   "protein": 20,
                   "fat": 30,
                   "calories": 300,
-                  "date": "27.12.2023"
+                  "date": "28.12.2023"
                 }
               }
             }
@@ -593,7 +621,9 @@
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "Food consumption for the current date deleted successfully"
+            "status": "success",
+            "code": 200,
+            "message": "Food consumption for the current date deleted successfully"
           },
           "401": {
             "description": "Unauthorized (invalid token)"
@@ -631,11 +661,11 @@
               },
               "example": {
                 "foodType": "breakfast",
-                "name": "soup",
-                "carbohydrate": 25,
-                "protein": 20,
-                "fat": 30,
-                "calories": 300
+                "foodName": "burger",
+                "carbohydrate": 125,
+                "protein": 60,
+                "fat": 50,
+                "calories": 400
               }
             }
           }
@@ -649,13 +679,13 @@
                   "$ref": "#/components/schemas/FoodUpdateResponse"
                 },
                 "example": {
-                  "_id": "65894da35e80ecc0e9526c7e",
+                  "_id": "658d1c0b5f78af03ef76c69e",
                   "foodType": "breakfast",
-                  "name": "soup",
-                  "carbohydrate": 25,
-                  "protein": 20,
-                  "fat": 30,
-                  "calories": 300
+                  "foodName": "burger",
+                  "carbohydrate": 125,
+                  "protein": 60,
+                  "fat": 50,
+                  "calories": 400
                 }
               }
             }
@@ -713,8 +743,8 @@
                   "status": "success",
                   "code": 200,
                   "data": {
-                    "date": "27.12.2023",
-                    "water": 550
+                    "date": "28.12.2023",
+                    "water": 200
                   }
                 }
               }
@@ -731,7 +761,7 @@
                   "status": "success",
                   "code": 201,
                   "data": {
-                    "date": "27.12.2023",
+                    "date": "28.12.2023",
                     "water": 100
                   }
                 }
@@ -767,7 +797,9 @@
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "Water consumption for the current date deleted successfully"
+            "status": "success",
+            "code": 200,
+            "message": "Water consumption for the current date deleted successfully"
           },
           "401": {
             "description": "Unauthorized (invalid token)"
@@ -816,52 +848,38 @@
                 "schema": {
                   "$ref": "#/components/schemas/Statistics"
                 },
-                "schema3": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "success"
-                    },
-                    "code": {
-                      "type": "number",
-                      "example": 200
-                    },
-                    "month": {
-                      "type": "object",
-                      "properties": {
-                        "water": {
-                          "type": "object",
-                          "properties": {
-                            "_id": {
-                              "type": "string",
-                              "example": "26"
-                            },
-                            "amount": {
-                              "type": "number",
-                              "example": 550
-                            }
-                          }
-                        },
-                        "weight": {
-                          "type": "object",
-                          "properties": {
-                            "_id": {
-                              "type": "string",
-                              "example": "26"
-                            },
-                            "amount": {
-                              "type": "number",
-                              "example": 0
-                            }
-                          }
-                        },
-                        "calories": {
-                          "type": "array",
-                          "example": []
-                        }
+                "example": {
+                  "today": {
+                    "water": [],
+                    "weight": [
+                      {
+                        "name": "Sweet Pie",
+                        "list": [],
+                        "createdAt": "2023-12-28T04:55:20.756Z"
                       }
-                    }
+                    ],
+                    "calories": []
+                  },
+                  "month": {
+                    "water": [],
+                    "weight": [
+                      {
+                        "_id": "28",
+                        "amount": 0
+                      }
+                    ],
+                    "calories": []
+                  },
+                  "year": {
+                    "water": [],
+                    "weight": [
+                      {
+                        "_id": "2023-12",
+                        "amount": 0,
+                        "count": 1
+                      }
+                    ],
+                    "calories": []
                   }
                 }
               }
@@ -900,16 +918,18 @@
             "content": {
               "application/json": {
                 "example": {
-                  "name": "Apples",
-                  "amount": "100 g",
-                  "img": "https://ftp.goit.study/img/you_health/Apples.png",
-                  "calories": 52,
                   "nutrition": {
                     "carbohydrates": 14,
                     "protein": 0.3,
                     "fat": 0.2
-                  }
+                  },
+                  "_id": "65870488d330513c3b11a6aa",
+                  "name": "Apples",
+                  "amount": "100 g",
+                  "img": "https://ftp.goit.study/img/you_health/Apples.png",
+                  "calories": 52
                 },
+
                 "schema": {
                   "$ref": "#/components/schemas/RecommendedFood"
                 }
@@ -1379,7 +1399,7 @@
         "properties": {
           "foodType": {
             "type": "string",
-            "enum": ["Breakfast", "Lunch", "Dinner", "Snack"],
+            "enum": ["breakfast", "lunch", "dinner", "snack"],
             "description": "Type of food",
             "required": true
           },
@@ -1420,7 +1440,7 @@
           },
           "foodType": {
             "type": "string",
-            "enum": ["Breakfast", "Lunch", "Dinner", "Snack"],
+            "enum": ["breakfast", "lunch", "dinner", "snack"],
             "description": "Type of food",
             "required": true
           },

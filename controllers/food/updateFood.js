@@ -1,12 +1,13 @@
 const { Food } = require("../../models/food");
 const { HttpError } = require("../../helpers");
 
-const updateFood = async (req, res, next) => {
+const updateFood = async (req, res) => {
   const { id: foodId } = req.params;
 
   const updatedFood = await Food.findByIdAndUpdate(foodId, req.body, {
     new: true,
   }).exec();
+  console.log(foodId);
 
   if (!updatedFood) {
     throw HttpError(404, "Not found");

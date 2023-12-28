@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const { handleMongooseError } = require("../helpers");
 
-const foodType = ["Breakfast", "Lunch", "Dinner", "Snack"];
+const foodType = ["breakfast", "lunch", "dinner", "snack"];
 
 const foodSchema = new Schema(
   {
@@ -57,16 +57,16 @@ const createFoodSchema = Joi.object({
   foodName: Joi.string()
     .required()
     .messages({ "any.required": "missing required foodName field" }),
-  carbohydrate: Joi.string()
+  carbohydrate: Joi.number()
     .required()
     .messages({ "any.required": "missing required carbohydrate field" }),
-  protein: Joi.string()
+  protein: Joi.number()
     .required()
     .messages({ "any.required": "missing required protein field" }),
-  fat: Joi.string()
+  fat: Joi.number()
     .required()
     .messages({ "any.required": "missing required fat field" }),
-  calories: Joi.string()
+  calories: Joi.number()
     .required()
     .messages({ "any.required": "missing required calories field" }),
 });
@@ -74,10 +74,10 @@ const createFoodSchema = Joi.object({
 const updateFoodSchema = Joi.object({
   foodType: Joi.string().valid(...foodType),
   foodName: Joi.string(),
-  carbohydrate: Joi.string(),
-  protein: Joi.string(),
-  fat: Joi.string(),
-  calories: Joi.string(),
+  carbohydrate: Joi.number(),
+  protein: Joi.number(),
+  fat: Joi.number(),
+  calories: Joi.number(),
 });
 
 const foodSchemas = {
