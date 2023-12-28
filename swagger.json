@@ -1,9 +1,9 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
-    "version": "0.7.6.1",
     "title": "HealthyHub API",
-    "description": "Showing off swagger-ui-express",
+    "description": "API documentation for Healthy Hub Server",
+    "version": "2.0.0",
     "license": {
       "name": "HealthyHub by Sweet-Pies",
       "url": "https://katanes.github.io/HealthyHub/"
@@ -38,162 +38,52 @@
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
-        "security": [{ "Bearer": [] }],
+        "security": [],
         "requestBody": {
           "description": "Registration object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "User's name",
-                    "example": "Sweet Pie"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "description": "User's email",
-                    "example": "sweetpie@goit.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "description": "User's password",
-                    "example": "password123"
-                  },
-                  "goal": {
-                    "type": "string",
-                    "description": "User's goal",
-                    "example": "1",
-                    "enum": ["1", "2", "3"]
-                  },
-                  "gender": {
-                    "type": "string",
-                    "enum": ["male", "female"]
-                  },
-                  "age": {
-                    "type": "number",
-                    "description": "User's age"
-                  },
-                  "height": {
-                    "type": "number",
-                    "description": "User's height"
-                  },
-                  "weight": {
-                    "type": "number",
-                    "description": "User's weight"
-                  },
-                  "activity": {
-                    "type": "number",
-                    "enum": [1, 2, 3, 4, 5]
-                  },
-                  "BMR": {
-                    "type": "number",
-                    "description": "User's BMR"
-                  },
-                  "rateWater": {
-                    "type": "number",
-                    "description": "User's rate water"
-                  },
-                  "protein": {
-                    "type": "number",
-                    "description": "User's protein"
-                  },
-                  "fat": {
-                    "type": "number",
-                    "description": "User's fat"
-                  },
-                  "carbs": {
-                    "type": "number",
-                    "description": "User's carbs"
-                  },
-                  "avatarURL": {
-                    "type": "string",
-                    "description": "User's avatar URL",
-                    "example": "//www.gravatar.com/avatar/308ddee7715dfc790fbc7a04b303e1ca"
-                  }
-                }
+                "$ref": "#/components/schemas/SignupRequest"
               },
-              "required": ["name", "email", "password"]
+              "example": {
+                "name": "Sweet Pie",
+                "email": "sweetpie@goit.ua",
+                "password": "qwe123456",
+                "goal": "1",
+                "gender": "male",
+                "age": 36,
+                "height": 172,
+                "weight": 90,
+                "activity": 3,
+                "BMR": 0,
+                "rateWater": 0,
+                "protein": 0,
+                "fat": 0,
+                "carbs": 0,
+                "avatarURL": "//www.gravatar.com/avatar/308ddee7715dfc790fbc7a04b303e1ca"
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Successful registration",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignupResponse"
+              }
             }
           }
         },
-        "responses": {
-          "201": {
-            "description": "Successful registration",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "success"
-                    },
-                    "code": {
-                      "type": "number",
-                      "example": 201
-                    },
-                    "token": {
-                      "type": "string",
-                      "description": "Authentication token for the registered user",
-                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                    },
-                    "user": {
-                      "type": "object",
-                      "properties": {
-                        "email": {
-                          "type": "string",
-                          "format": "email",
-                          "example": "sweetpie@goit.com"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Sweet Pie"
-                        },
-                        "goal": {
-                          "type": "string",
-                          "example": "1"
-                        },
-                        "gender": {
-                          "type": "string",
-                          "example": "male"
-                        },
-                        "age": {
-                          "type": "number",
-                          "example": 30
-                        },
-                        "height": {
-                          "type": "number",
-                          "example": 175
-                        },
-                        "weight": {
-                          "type": "number",
-                          "example": 75
-                        },
-                        "activity": {
-                          "type": "number",
-                          "example": "2"
-                        },
-                        "avatarURL": {
-                          "type": "string",
-                          "example": "//www.gravatar.com/avatar/308ddee7715dfc790fbc7a04b303e1ca"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)"
-          },
-          "409": {
-            "description": "Email already in use"
-          }
+        "400": {
+          "description": "Bad request (invalid request body)"
+        },
+        "409": {
+          "description": "Email already in use"
         }
       }
     },
@@ -203,17 +93,22 @@
         "summary": "Verify email with token",
         "parameters": [
           {
-            "name": "token",
             "in": "path",
+            "name": "token",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Email verification successful"
+            "description": "Email verification successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyResponse"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid token)"
@@ -227,39 +122,34 @@
     "/api/auth/verify": {
       "post": {
         "tags": ["Auth"],
-        "summary": "Check the presence of an email in the database",
-        "parameters": [],
+        "summary": "Resend email for user's verification",
         "requestBody": {
-          "description": "Request to check an email",
+          "description": "Email object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmailCheckRequest"
+                "$ref": "#/components/schemas/VerifyRequest"
+              },
+              "example": {
+                "email": "sweetpie@goit.ua"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Result of email verification",
+            "description": "Verification email resent successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmailCheckResponse"
+                  "$ref": "#/components/schemas/VerifyResponse"
                 }
               }
             }
           },
           "500": {
-            "description": "Server error during email verification",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "description": "Server error during email verification"
           }
         }
       }
@@ -301,55 +191,34 @@
         }
       }
     },
-    "/api/auth/signout": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "User logout",
-        "parameters": [],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Successful logout"
-          },
-          "401": {
-            "description": "Unauthorized (invalid credentials)"
-          }
-        }
-      }
-    },
     "/api/auth/forgot-password": {
       "post": {
         "tags": ["Auth"],
         "summary": "Forgot password",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "body",
-            "description": "User's email",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "description": "Email object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmailRequest"
+                "$ref": "#/components/schemas/VerifyRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Password reset email sent successfully"
+            "description": "Password reset email sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForgotPasswordResponse"
+                },
+                "example": {
+                  "message": "Your new password was send to your email!"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid request body)"
@@ -360,11 +229,65 @@
         }
       }
     },
+    "/api/auth/signout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Bearer Token"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Successful logout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Successful user's logout"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "You have logout successful"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (invalid token)"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/api/user/current": {
       "get": {
         "tags": ["User"],
         "summary": "Get current user",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Bearer Token"
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
@@ -372,13 +295,43 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CurrentUserResponse"
+                  "$ref": "#/components/schemas/CurrentResponse"
+                },
+                "example": {
+                  "_id": "65894da35e80ecc0e9526c7e",
+                  "name": "Sweet Pie",
+                  "email": "sweetpie@goit.ua",
+                  "password": "$2b$10$ALuIZ33khGw6VVCHN5YZzuA9MrPx26L5Ie6VphfgTXa6n2ja9UWFe",
+                  "goal": "1",
+                  "gender": "male",
+                  "age": 36,
+                  "height": 172,
+                  "weight": 90,
+                  "token": "strieyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODk0ZGEzNWU4MGVjYzng",
+                  "activity": "1",
+                  "BMR": 2000,
+                  "rateWater": 1500,
+                  "protein": 120,
+                  "fat": 40,
+                  "carbs": 270,
+                  "avatarUrl": "//www.gravatar.com/avatar/55447609b6d5f93aa67859e910446536",
+                  "verify": true,
+                  "verificationToken": "33df6c3a-7df5-42e5-a835-41e920499957",
+                  "confirmationOfVerification": 0,
+                  "createdAt": "2023-12-25T09:38:43.872Z",
+                  "updatedAt": "2023-12-25T09:38:43.897Z"
                 }
               }
             }
           },
           "401": {
-            "description": "Unauthorized (invalid credentials)"
+            "description": "Unauthorized (invalid token)"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -391,33 +344,49 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Bearer token for authentication",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "type": "string",
+            "description": "Bearer Token"
           }
         ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-
+        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Updated user's information",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserInfoRequest"
+                "$ref": "#/components/schemas/UpdateRequest"
+              },
+              "example": {
+                "goal": "1",
+                "gender": "male",
+                "age": 36,
+                "height": 172,
+                "weight": 90,
+                "activity": 3
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "User's information updated successfully"
+            "description": "User's information updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateResponse"
+                },
+                "example": {
+                  "goal": "1",
+                  "gender": "male",
+                  "age": 36,
+                  "height": 172,
+                  "weight": 90,
+                  "activity": 3
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid request body or ID)"
@@ -427,6 +396,9 @@
           },
           "404": {
             "description": "User not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -439,33 +411,22 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Bearer token for authentication",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "type": "string",
+            "description": "Bearer Token"
           }
         ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "User's goal object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "goal": {
-                    "type": "string",
-                    "description": "User's new goal",
-                    "example": "1"
-                  }
-                },
-                "required": ["goal"]
+                "$ref": "#/components/schemas/Goal"
+              },
+              "example": {
+                "goal": "1"
               }
             }
           }
@@ -476,29 +437,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "success"
-                    },
-                    "code": {
-                      "type": "number",
-                      "example": 200
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "goal": {
-                          "type": "string",
-                          "example": "1"
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/Goal"
+                },
+                "example": {
+                  "goal": "1"
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized (invalid token)"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -511,33 +465,22 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Bearer token for authentication",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "type": "string",
+            "description": "Bearer Token"
           }
         ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "User's weight object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "weight": {
-                    "type": "number",
-                    "description": "User's new weight",
-                    "example": 67
-                  }
-                },
-                "required": ["weight"]
+                "$ref": "#/components/schemas/WeightRequest"
+              },
+              "example": {
+                "weight": 90
               }
             }
           }
@@ -548,108 +491,24 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "success"
-                    },
-                    "code": {
-                      "type": "number",
-                      "example": 200
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "date": {
-                          "type": "string",
-                          "example": "25.12.2023"
-                        },
-                        "weight": {
-                          "type": "number",
-                          "example": 67
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/WeightResponse"
+                },
+                "example": {
+                  "weight": 90,
+                  "_id": "65894da35e80ecc0e9526c7e",
+                  "date": "2023-12-27T04:07:38.857Z"
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/user/water-intake": {
-      "post": {
-        "tags": ["User"],
-        "summary": "Add water intake for a user",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Bearer token for authentication",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "description": "Water intake object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WaterIntakeRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Water intake added successfully"
-          },
-          "400": {
-            "description": "Bad request (invalid request body)"
           },
           "401": {
             "description": "Unauthorized (invalid token)"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["User"],
-        "summary": "Delete user's water intake",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Bearer token for authentication",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Water consumption for the current date deleted successfully"
           },
           "404": {
-            "description": "Water consumption for the current date not found"
+            "description": "Not found"
           },
           "500": {
-            "description": "Some problem with deleting water consumption"
+            "description": "Server error"
           }
         }
       }
@@ -662,55 +521,27 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Bearer token for authentication",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "type": "string",
+            "description": "Bearer Token"
           }
         ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Food intake object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "foodType": {
-                    "type": "string",
-                    "description": "Type of the food ('breakfast', 'snack', 'dinner', 'lunch')"
-                  },
-                  "foodName": {
-                    "type": "string",
-                    "description": "Name of the food"
-                  },
-                  "carbohydrates": {
-                    "type": "number",
-                    "description": "Carbohydrate content"
-                  },
-                  "protein": {
-                    "type": "number",
-                    "description": "Protein content"
-                  },
-                  "fat": {
-                    "type": "number",
-                    "description": "Fat content"
-                  },
-                  "calories": {
-                    "type": "number",
-                    "description": "Calories content"
-                  },
-                  "date": {
-                    "type": "string",
-                    "description": "Date"
-                  }
-                }
+                "$ref": "#/components/schemas/FoodRequest"
+              },
+              "example": {
+                "foodType": "breakfast",
+                "name": "soup",
+                "carbohydrate": 25,
+                "protein": 20,
+                "fat": 30,
+                "calories": 300
               }
             }
           }
@@ -721,36 +552,29 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string"
-                    },
-                    "foodType": {
-                      "type": "string"
-                    },
-                    "foodName": {
-                      "type": "string"
-                    },
-                    "carbohydrate": {
-                      "type": "number"
-                    },
-                    "protein": {
-                      "type": "number"
-                    },
-                    "fat": {
-                      "type": "number"
-                    },
-                    "calories": {
-                      "type": "number"
-                    },
-                    "date": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/FoodResponse"
+                },
+                "example": {
+                  "_id": "65894da35e80ecc0e9526c7e",
+                  "foodType": "breakfast",
+                  "name": "soup",
+                  "carbohydrate": 25,
+                  "protein": 20,
+                  "fat": 30,
+                  "calories": 300,
+                  "date": "27.12.2023"
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized (invalid token)"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       },
@@ -759,32 +583,20 @@
         "summary": "Delete user's food intake",
         "parameters": [
           {
-            "name": "date",
-            "in": "query",
-            "description": "Date of food intake",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "in": "header",
             "name": "Authorization",
-            "description": "Bearer token for authentication",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "type": "string",
+            "description": "Bearer Token"
           }
         ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "description": "Food consumption for the current date deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized (invalid token)"
           },
           "404": {
             "description": "Food consumption for the current date not found"
@@ -801,62 +613,29 @@
         "summary": "Update food intake for a specific product",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of the food product to update",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "in": "header",
             "name": "Authorization",
-            "description": "Bearer token for authentication",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "type": "string",
+            "description": "Bearer Token"
           }
         ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Food intake object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "foodType": {
-                    "type": "string",
-                    "description": "Type of the food ('breakfast', 'snack', 'dinner', 'lunch')"
-                  },
-                  "foodName": {
-                    "type": "string",
-                    "description": "Name of the food"
-                  },
-                  "carbohydrates": {
-                    "type": "number",
-                    "description": "Carbohydrate content"
-                  },
-                  "protein": {
-                    "type": "number",
-                    "description": "Protein content"
-                  },
-                  "fat": {
-                    "type": "number",
-                    "description": "Fat content"
-                  },
-                  "calories": {
-                    "type": "number",
-                    "description": "Calories content"
-                  }
-                }
+                "$ref": "#/components/schemas/FoodRequest"
+              },
+              "example": {
+                "foodType": "breakfast",
+                "name": "soup",
+                "carbohydrate": 25,
+                "protein": 20,
+                "fat": 30,
+                "calories": 300
               }
             }
           }
@@ -867,91 +646,141 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string"
-                    },
-                    "foodType": {
-                      "type": "string"
-                    },
-                    "foodName": {
-                      "type": "string"
-                    },
-                    "carbohydrate": {
-                      "type": "number"
-                    },
-                    "protein": {
-                      "type": "number"
-                    },
-                    "fat": {
-                      "type": "number"
-                    },
-                    "calories": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/FoodUpdateResponse"
+                },
+                "example": {
+                  "_id": "65894da35e80ecc0e9526c7e",
+                  "foodType": "breakfast",
+                  "name": "soup",
+                  "carbohydrate": 25,
+                  "protein": 20,
+                  "fat": 30,
+                  "calories": 300
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized (invalid token)"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
     },
-    "/api/user/daily-goal-calories": {
-      "get": {
+    "/api/user/water-intake": {
+      "post": {
         "tags": ["User"],
-        "summary": "Get user's daily goal calories",
+        "summary": "Add water intake for a user",
         "parameters": [
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Bearer token for authentication",
             "required": true,
-            "schema": {
-              "type": "string"
+            "type": "string",
+            "description": "Bearer Token"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Water intake object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WaterRequest"
+              },
+              "example": {
+                "water": 100,
+                "date": "27.12.2023"
+              }
             }
           }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        },
         "responses": {
           "200": {
-            "description": "Successful retrieval",
+            "description": "Water intake today",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "success"
-                    },
-                    "code": {
-                      "type": "number",
-                      "example": 200
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "number",
-                          "example": 1700
-                        }
-                      }
-                    }
+                  "$ref": "#/components/schemas/WaterTodayResponse"
+                },
+                "example": {
+                  "status": "success",
+                  "code": 200,
+                  "data": {
+                    "date": "27.12.2023",
+                    "water": 550
                   }
                 }
               }
             }
+          },
+          "201": {
+            "description": "Water intake added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterResponse"
+                },
+                "example": {
+                  "status": "success",
+                  "code": 201,
+                  "data": {
+                    "date": "27.12.2023",
+                    "water": 100
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "401": {
+            "description": "Unauthorized (invalid token)"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete user's water intake",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Bearer Token"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Water consumption for the current date deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized (invalid token)"
+          },
+          "404": {
+            "description": "Water consumption for the current date not found"
+          },
+          "500": {
+            "description": "Some problem with deleting water consumption"
           }
         }
       }
     },
-
     "/api/user/statistics": {
       "get": {
         "tags": ["User"],
@@ -960,24 +789,34 @@
           {
             "in": "header",
             "name": "Authorization",
-            "description": "Bearer token for authentication",
             "required": true,
+            "type": "string",
+            "description": "Bearer Token"
+          },
+          {
+            "in": "query",
+            "name": "period",
+            "required": true,
+            "type": "string",
+            "description": "Period for stats",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": ["today", "month", "year"],
+              "example": "month"
             }
           }
         ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [{ "Bearer": [] }],
+
         "responses": {
           "200": {
             "description": "Successful retrieval",
             "content": {
               "application/json": {
                 "schema": {
+                  "$ref": "#/components/schemas/Statistics"
+                },
+                "schema3": {
                   "type": "object",
                   "properties": {
                     "status": {
@@ -988,119 +827,38 @@
                       "type": "number",
                       "example": 200
                     },
-                    "data": {
+                    "month": {
                       "type": "object",
                       "properties": {
                         "water": {
                           "type": "object",
                           "properties": {
-                            "lastMonth": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "date": {
-                                    "type": "string",
-                                    "example": "2023-09-01"
-                                  },
-                                  "value": {
-                                    "type": "number",
-                                    "example": 1500
-                                  }
-                                }
-                              }
+                            "_id": {
+                              "type": "string",
+                              "example": "26"
                             },
-                            "lastYear": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "date": {
-                                    "type": "string",
-                                    "example": "2022-09-01"
-                                  },
-                                  "value": {
-                                    "type": "number",
-                                    "example": 1600
-                                  }
-                                }
-                              }
+                            "amount": {
+                              "type": "number",
+                              "example": 550
                             }
                           }
                         },
                         "weight": {
                           "type": "object",
                           "properties": {
-                            "lastMonth": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "date": {
-                                    "type": "string",
-                                    "example": "2023-09-01"
-                                  },
-                                  "value": {
-                                    "type": "number",
-                                    "example": 70
-                                  }
-                                }
-                              }
+                            "_id": {
+                              "type": "string",
+                              "example": "26"
                             },
-                            "lastYear": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "date": {
-                                    "type": "string",
-                                    "example": "2022-09-01"
-                                  },
-                                  "value": {
-                                    "type": "number",
-                                    "example": 75
-                                  }
-                                }
-                              }
+                            "amount": {
+                              "type": "number",
+                              "example": 0
                             }
                           }
                         },
                         "calories": {
-                          "type": "object",
-                          "properties": {
-                            "lastMonth": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "date": {
-                                    "type": "string",
-                                    "example": "2023-09-01"
-                                  },
-                                  "value": {
-                                    "type": "number",
-                                    "example": 2000
-                                  }
-                                }
-                              }
-                            },
-                            "lastYear": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "date": {
-                                    "type": "string",
-                                    "example": "2022-09-01"
-                                  },
-                                  "value": {
-                                    "type": "number",
-                                    "example": 2100
-                                  }
-                                }
-                              }
-                            }
-                          }
+                          "type": "array",
+                          "example": []
                         }
                       }
                     }
@@ -1108,6 +866,15 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized (invalid token)"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -1116,6 +883,16 @@
       "get": {
         "tags": ["Recommended Food"],
         "summary": "Get food recommendations",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Bearer Token"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
         "description": "Retrieve a list of recommended food items.",
         "responses": {
           "200": {
@@ -1134,16 +911,19 @@
                   }
                 },
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Food"
-                  }
+                  "$ref": "#/components/schemas/RecommendedFood"
                 }
               }
             }
           },
+          "401": {
+            "description": "Unauthorized (invalid token)"
+          },
+          "404": {
+            "description": "Not found"
+          },
           "500": {
-            "description": "Server error. Unable to retrieve food recommendations."
+            "description": "Server error"
           }
         }
       }
@@ -1159,8 +939,9 @@
       }
     },
     "schemas": {
-      "RegistrationRequest": {
+      "SignupRequest": {
         "type": "object",
+        "title": "SignupRequest",
         "required": ["name", "email", "password"],
         "properties": {
           "name": {
@@ -1176,22 +957,22 @@
           "password": {
             "type": "string",
             "description": "User's password",
-            "example": "qwerty123"
+            "example": "qwe123456"
           },
           "goal": {
             "type": "string",
             "description": "User's goal",
-            "example": "Lose Fat",
+            "example": "1",
             "enum": ["1", "2", "3"]
-          },
-          "age": {
-            "type": "number",
-            "description": "User's age"
           },
           "gender": {
             "type": "string",
             "description": "User's gender",
             "enum": ["male", "female"]
+          },
+          "age": {
+            "type": "number",
+            "description": "User's age"
           },
           "weight": {
             "type": "number",
@@ -1203,6 +984,7 @@
           },
           "activity": {
             "type": "number",
+            "enum": [1, 2, 3, 4, 5],
             "description": "User's activity level"
           },
           "BMR": {
@@ -1232,8 +1014,9 @@
           }
         }
       },
-      "RegistrationResponse": {
+      "SignupResponse": {
         "type": "object",
+        "title": "SignupResponse",
         "properties": {
           "token": {
             "type": "string",
@@ -1287,9 +1070,30 @@
           }
         }
       },
-      "SigninRequest": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
+      "VerifyRequest": {
         "type": "object",
+        "title": "VerifyRequest",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User's email"
+          }
+        }
+      },
+      "VerifyResponse": {
+        "type": "object",
+        "title": "VerifyResponse",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Message about successful confirmation of email"
+          }
+        }
+      },
+      "SigninRequest": {
+        "type": "object",
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -1299,11 +1103,9 @@
             "type": "string",
             "minLength": 6
           }
-        },
-        "required": ["email", "password"]
+        }
       },
       "SigninResponse": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
           "token": {
@@ -1346,703 +1148,13 @@
               },
               "activity": {
                 "type": "number",
-                "description": "User's activity level"
+                "description": "User's activity level",
+                "enum": ["1", "2", "3", "4", "5"]
               },
               "avatarURL": {
                 "type": "string",
                 "example": "//www.gravatar.com/avatar/308ddee7715dfc790fbc7a04b303e1ca"
               }
-            }
-          }
-        },
-        "required": ["token", "user"]
-      },
-      "WaterIntakeRequest": {
-        "type": "object",
-        "properties": {
-          "water": {
-            "type": "number",
-            "description": "Value of water"
-          }
-        },
-        "description": "Data for updating information about water intake."
-      },
-      "WaterIntakeResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "The status of the response (e.g., 'success')."
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "date": {
-                "type": "string",
-                "description": "The date of the water intake."
-              },
-              "water": {
-                "type": "number",
-                "description": "The value of the water intake."
-              }
-            }
-          }
-        }
-      },
-      "WeightRequest": {
-        "type": "object",
-        "properties": {
-          "weight": {
-            "type": "number",
-            "description": "Value of weight"
-          }
-        },
-        "description": "Data for updating information about weight."
-      },
-      "WeightResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "The status of the response (e.g., 'success')."
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "date": {
-                "type": "string",
-                "description": "The date of the weight."
-              },
-              "weight": {
-                "type": "number",
-                "description": "The value of the weight."
-              }
-            }
-          }
-        }
-      },
-      "StatisticsRequest": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "description": "Date of the statistics"
-          }
-        },
-        "description": "Data for updating information about statistics."
-      },
-      "StatisticsResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "The status of the response (e.g., 'success')."
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "today": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "water": {
-                      "type": "number",
-                      "description": "The value of the water intake."
-                    },
-                    "weight": {
-                      "type": "number",
-                      "description": "The value of the weight."
-                    },
-                    "calories": {
-                      "type": "number",
-                      "description": "The value of the calories."
-                    }
-                  }
-                }
-              },
-              "lastMonth": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "water": {
-                      "type": "number",
-                      "description": "The value of the water intake."
-                    },
-                    "weight": {
-                      "type": "number",
-                      "description": "The value of the weight."
-                    },
-                    "calories": {
-                      "type": "number",
-                      "description": "The value of the calories."
-                    }
-                  }
-                }
-              },
-              "lastYear": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "water": {
-                      "type": "number",
-                      "description": "The value of the water intake."
-                    },
-                    "weight": {
-                      "type": "number",
-                      "description": "The value of the weight."
-                    },
-                    "calories": {
-                      "type": "number",
-                      "description": "The value of the calories."
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "UserGoalRequest": {
-        "type": "object",
-        "properties": {
-          "goal": {
-            "type": "string",
-            "description": "Value of goal",
-            "example": "2",
-            "enum": ["1", "2", "3"]
-          }
-        },
-        "description": "Data for updating information about goal."
-      },
-      "UserGoalResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "The status of the response (e.g., 'success')."
-          },
-          "goal": {
-            "type": "string",
-            "description": "The value of the goal.",
-            "example": "2",
-            "enum": ["1", "2", "3"]
-          }
-        }
-      },
-      "DailyGoalRequest": {
-        "type": "object",
-        "properties": {
-          "goal": {
-            "type": "number",
-            "description": "Value of daily goal"
-          }
-        },
-        "description": "Data for updating information about daily goal."
-      },
-      "DailyGoalResponse": {
-        "type": "object",
-        "properties": {
-          "goal": {
-            "type": "number",
-            "description": "The value of the daily goal."
-          }
-        }
-      },
-      "FoodIntakeRequest": {
-        "type": "object",
-        "properties": {
-          "foodType": {
-            "type": "string",
-            "description": "Type of food"
-          },
-          "foodName": {
-            "type": "string",
-            "description": "Name of the food"
-          },
-          "carbohydrate": {
-            "type": "number",
-            "description": "Carbonohidrates content"
-          },
-          "protein": {
-            "type": "number",
-            "description": "Protein content"
-          },
-          "fat": {
-            "type": "number",
-            "description": "Fat content"
-          },
-          "calories": {
-            "type": "number",
-            "description": "Calories content"
-          }
-        },
-        "description": "Data for updating information about food intake."
-      },
-      "FoodIntakeResponse": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Type of food"
-          },
-          "foodType": {
-            "type": "string",
-            "description": "Type of food"
-          },
-          "foodName": {
-            "type": "string",
-            "description": "Name of the food"
-          },
-          "carbohydrate": {
-            "type": "number",
-            "description": "Carbonohidrates content"
-          },
-          "protein": {
-            "type": "number",
-            "description": "Protein content"
-          },
-          "fat": {
-            "type": "number",
-            "description": "Fat content"
-          },
-          "calories": {
-            "type": "number",
-            "description": "Calories content"
-          },
-          "date": {
-            "type": "string",
-            "description": "Date"
-          }
-        }
-      },
-      "FoodUpdateRequest": {
-        "type": "object",
-        "properties": {
-          "foodType": {
-            "type": "string",
-            "description": "Type of food"
-          },
-          "foodName": {
-            "type": "string",
-            "description": "Name of the food"
-          },
-          "carbohydrate": {
-            "type": "number",
-            "description": "Carbonohidrates content"
-          },
-          "protein": {
-            "type": "number",
-            "description": "Protein content"
-          },
-          "fat": {
-            "type": "number",
-            "description": "Fat content"
-          },
-          "calories": {
-            "type": "number",
-            "description": "Calories content"
-          }
-        }
-      },
-      "FoodUpdateResponse": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Type of food"
-          },
-          "foodType": {
-            "type": "string",
-            "description": "Type of food"
-          },
-          "foodName": {
-            "type": "string",
-            "description": "Name of the food"
-          },
-          "carbohydrate": {
-            "type": "number",
-            "description": "Carbonohidrates content"
-          },
-          "protein": {
-            "type": "number",
-            "description": "Protein content"
-          },
-          "fat": {
-            "type": "number",
-            "description": "Fat content"
-          },
-          "calories": {
-            "type": "number",
-            "description": "Calories content"
-          }
-        }
-      },
-      "EmailRequest": {
-        "type": "object",
-        "required": ["email"],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          }
-        }
-      },
-      "Error": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "integer",
-            "description": "Status code"
-          },
-          "status": {
-            "type": "string",
-            "description": "Status message"
-          }
-        }
-      },
-      "EmailCheckRequest": {
-        "type": "object",
-        "required": ["email"],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          }
-        },
-        "description": "Send a new password to the user's email if it exists in the database."
-      },
-      "EmailCheckResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "A message indicating whether the email exists in the database or not."
-          }
-        },
-        "description": "Response indicating if the email exists in the database."
-      },
-      "UpdateUserInfoRequest": {
-        "type": "object",
-        "properties": {
-          "age": {
-            "type": "integer",
-            "description": "The user's age."
-          },
-          "height": {
-            "type": "number",
-            "description": "The user's height in centimeters."
-          },
-          "weight": {
-            "type": "number",
-            "description": "The user's weight in kilograms."
-          },
-          "activity": {
-            "type": "string",
-            "description": "The user's activity level."
-          },
-          "gender": {
-            "type": "string",
-            "description": "The user's gender."
-          },
-          "goal": {
-            "type": "string",
-            "description": "The user's goal."
-          }
-        },
-        "description": "Data for updating information about a user."
-      },
-      "UpdateUserInfoResponse": {
-        "type": "object",
-        "properties": {
-          "age": {
-            "type": "integer",
-            "description": "The user's age."
-          },
-          "height": {
-            "type": "number",
-            "description": "The user's height in centimeters."
-          },
-          "weight": {
-            "type": "number",
-            "description": "The user's weight in kilograms."
-          },
-          "activity": {
-            "type": "string",
-            "description": "The user's activity level."
-          },
-          "gender": {
-            "type": "string",
-            "description": "The user's gender."
-          },
-          "goal": {
-            "type": "string",
-            "description": "The user's goal."
-          }
-        }
-      },
-      "CurrentUserResponse": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "integer",
-            "description": "Status code"
-          },
-          "status": {
-            "type": "string",
-            "description": "Status message"
-          },
-          "user": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string",
-                "description": "User's email"
-              },
-              "name": {
-                "type": "string",
-                "description": "User's name"
-              },
-              "goal": {
-                "type": "string",
-                "description": "User's goal"
-              },
-              "age": {
-                "type": "integer",
-                "description": "User's age"
-              },
-              "height": {
-                "type": "number",
-                "description": "User's height"
-              },
-              "weight": {
-                "type": "number",
-                "description": "User's weight"
-              },
-              "avatarUrl": {
-                "type": "string",
-                "description": "URL to user's avatar"
-              },
-              "gender": {
-                "type": "string",
-                "description": "User's gender"
-              },
-              "activity": {
-                "type": "string",
-                "description": "User's activity level"
-              }
-            }
-          }
-        },
-        "FoodIntakeUpdateRequest": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "Name of the food product"
-            },
-            "carbohydrates": {
-              "type": "number",
-              "description": "Amount of carbohydrates"
-            },
-            "protein": {
-              "type": "number",
-              "description": "Amount of protein"
-            },
-            "fat": {
-              "type": "number",
-              "description": "Amount of fat"
-            }
-          },
-          "description": "Data for updating information about food intake."
-        },
-        "FoodIntakeRequest": {
-          "type": "object",
-          "properties": {
-            "breakfast": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "carbohydrates": {
-                    "type": "number"
-                  },
-                  "protein": {
-                    "type": "number"
-                  },
-                  "fat": {
-                    "type": "number"
-                  },
-                  "calories": {
-                    "type": "number"
-                  }
-                }
-              }
-            },
-            "lunch": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "carbohydrates": {
-                    "type": "number"
-                  },
-                  "protein": {
-                    "type": "number"
-                  },
-                  "fat": {
-                    "type": "number"
-                  },
-                  "calories": {
-                    "type": "number"
-                  }
-                }
-              }
-            },
-            "snack": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "carbohydrates": {
-                    "type": "number"
-                  },
-                  "protein": {
-                    "type": "number"
-                  },
-                  "fat": {
-                    "type": "number"
-                  },
-                  "calories": {
-                    "type": "number"
-                  }
-                }
-              }
-            },
-            "dinner": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "carbohydrates": {
-                    "type": "number"
-                  },
-                  "protein": {
-                    "type": "number"
-                  },
-                  "fat": {
-                    "type": "number"
-                  },
-                  "calories": {
-                    "type": "number"
-                  }
-                }
-              }
-            }
-          },
-          "description": "Request to add food intake information for a user."
-        },
-        "FoodIntakeResponse": {
-          "type": "object",
-          "properties": {
-            "code": {
-              "type": "integer",
-              "description": "Status code"
-            },
-            "status": {
-              "type": "string",
-              "description": "Status message"
-            }
-          },
-          "description": "Response after successfully adding food intake information for a user."
-        },
-        "SigninRequest": {
-          "type": "object",
-          "required": ["email", "password"],
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "password": {
-              "type": "string",
-              "description": "User's password",
-              "example": "qwerty123"
-            }
-          }
-        },
-        "SigninResponse": {
-          "type": "object",
-          "properties": {
-            "code": {
-              "type": "integer",
-              "description": "Status code"
-            },
-            "status": {
-              "type": "string",
-              "description": "Status message"
-            },
-            "user": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "description": "User's email"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "User's name"
-                },
-                "goal": {
-                  "type": "string",
-                  "description": "User's goal"
-                },
-                "age": {
-                  "type": "integer",
-                  "description": "User's age"
-                },
-                "height": {
-                  "type": "number",
-                  "description": "User's height"
-                },
-                "weight": {
-                  "type": "number",
-                  "description": "User's weight"
-                },
-                "avatarUrl": {
-                  "type": "string",
-                  "description": "URL to user's avatar"
-                },
-                "gender": {
-                  "type": "string",
-                  "description": "User's gender"
-                },
-                "activity": {
-                  "type": "string",
-                  "description": "User's activity level"
-                }
-              }
-            },
-            "token": {
-              "type": "string",
-              "description": "Access token"
             }
           }
         }
@@ -2052,31 +1164,473 @@
         "properties": {
           "message": {
             "type": "string",
-            "description": "A message indicating whether the password reset email was sent successfully or not."
-          }
-        },
-        "description": "Response indicating if the password reset email was sent."
-      },
-      "SignoutRequest": {
-        "type": "object",
-        "required": ["userId"],
-        "properties": {
-          "userId": {
-            "type": "string",
-            "description": "User's id"
+            "description": "Your new password was send to your email!"
           }
         }
       },
-      "SignoutResponse": {
+      "CurrentResponse": {
         "type": "object",
         "properties": {
-          "code": {
-            "type": "integer",
-            "description": "Status code"
+          "_id": {
+            "type": "string",
+            "description": "User's id"
           },
+          "name": {
+            "type": "string",
+            "description": "User's name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password(hash)"
+          },
+          "goal": {
+            "type": "string",
+            "enum": ["1", "2", "3"],
+            "description": "User's goal"
+          },
+          "gender": {
+            "type": "string",
+            "enum": ["male", "female"],
+            "description": "User's gender"
+          },
+          "age": {
+            "type": "integer",
+            "description": "User's age"
+          },
+          "height": {
+            "type": "number",
+            "description": "User's height"
+          },
+          "weight": {
+            "type": "number",
+            "description": "User's weight"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token"
+          },
+          "activity": {
+            "type": "number",
+            "enum": ["1", "2", "3", "4", "5"],
+            "description": "User's activity level"
+          },
+          "BMR": {
+            "type": "number",
+            "description": "User's BMR"
+          },
+          "rateWater": {
+            "type": "number",
+            "description": "User's rate water"
+          },
+          "protein": {
+            "type": "number",
+            "description": "User's protein"
+          },
+          "fat": {
+            "type": "number",
+            "description": "User's fat"
+          },
+          "carbs": {
+            "type": "number",
+            "description": "User's carbs"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "URL to user's avatar"
+          },
+          "verify": {
+            "type": "boolean",
+            "description": "User's verify email"
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "User's verificationToken"
+          },
+          "confirmationOfVerification": {
+            "type": "number",
+            "description": "User's confirmationOfVerification"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "User's create date"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "User's update date"
+          }
+        }
+      },
+      "UpdateRequest": {
+        "type": "object",
+        "description": "Data for updating information about a user.",
+        "properties": {
+          "required": ["age", "height", "weight"],
+          "properties": {
+            "goal": {
+              "type": "string",
+              "description": "The user's goal."
+            },
+            "gender": {
+              "type": "string",
+              "description": "The user's gender."
+            },
+            "age": {
+              "type": "integer",
+              "description": "The user's age."
+            },
+            "height": {
+              "type": "number",
+              "description": "The user's height in centimeters."
+            },
+            "weight": {
+              "type": "number",
+              "description": "The user's weight in kilograms."
+            },
+            "activity": {
+              "type": "string",
+              "description": "The user's activity level."
+            }
+          }
+        }
+      },
+      "UpdateResponse": {
+        "type": "object",
+        "description": "Data for updating information about a user.",
+        "properties": {
+          "goal": {
+            "type": "string",
+            "description": "The user's goal."
+          },
+          "gender": {
+            "type": "string",
+            "description": "The user's gender."
+          },
+          "age": {
+            "type": "integer",
+            "description": "The user's age."
+          },
+          "height": {
+            "type": "number",
+            "description": "The user's height in centimeters."
+          },
+          "weight": {
+            "type": "number",
+            "description": "The user's weight in kilograms."
+          },
+          "activity": {
+            "type": "string",
+            "description": "The user's activity level."
+          }
+        }
+      },
+      "Goal": {
+        "type": "object",
+        "properties": {
+          "goal": {
+            "type": "string",
+            "description": "Updating information about goal",
+            "enum": ["1", "2", "3"],
+            "required": true
+          }
+        }
+      },
+      "WeightRequest": {
+        "type": "object",
+        "properties": {
+          "description": "Data for updating information about weight.",
+          "properties": {
+            "weight": {
+              "type": "number",
+              "description": "Value of weight",
+              "required": true
+            }
+          }
+        }
+      },
+      "WeightResponse": {
+        "type": "object",
+        "properties": {
+          "Response": {
+            "type": "object",
+            "properties": {
+              "weight": {
+                "type": "number",
+                "description": "The value of the weight."
+              },
+              "_id": {
+                "type": "string",
+                "description": "The date of the weight."
+              },
+              "date": {
+                "type": "string",
+                "description": "The date of the weight."
+              }
+            }
+          }
+        }
+      },
+      "FoodRequest": {
+        "type": "object",
+        "description": "Data for creating information about food intake.",
+        "properties": {
+          "foodType": {
+            "type": "string",
+            "enum": ["Breakfast", "Lunch", "Dinner", "Snack"],
+            "description": "Type of food",
+            "required": true
+          },
+          "foodName": {
+            "type": "string",
+            "description": "Name of the food",
+            "required": true
+          },
+          "carbohydrate": {
+            "type": "number",
+            "description": "Carbonohidrates content",
+            "required": true
+          },
+          "protein": {
+            "type": "number",
+            "description": "Protein content",
+            "required": true
+          },
+          "fat": {
+            "type": "number",
+            "description": "Fat content",
+            "required": true
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories content",
+            "required": true
+          }
+        }
+      },
+      "FoodResponse": {
+        "type": "object",
+        "description": "Data for creating information about food intake.",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Type of food"
+          },
+          "foodType": {
+            "type": "string",
+            "enum": ["Breakfast", "Lunch", "Dinner", "Snack"],
+            "description": "Type of food",
+            "required": true
+          },
+          "foodName": {
+            "type": "string",
+            "description": "Name of the food",
+            "required": true
+          },
+          "carbohydrate": {
+            "type": "number",
+            "description": "Carbonohidrates content",
+            "required": true
+          },
+          "protein": {
+            "type": "number",
+            "description": "Protein content",
+            "required": true
+          },
+          "fat": {
+            "type": "number",
+            "description": "Fat content",
+            "required": true
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories content",
+            "required": true
+          },
+          "date": {
+            "type": "string",
+            "description": "Date"
+          }
+        }
+      },
+      "FoodUpdateResponse": {
+        "type": "object",
+        "description": "Data for creating information about food intake.",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Type of food"
+          },
+          "foodType": {
+            "type": "string",
+            "enum": ["Breakfast", "Lunch", "Dinner", "Snack"],
+            "description": "Type of food"
+          },
+          "foodName": {
+            "type": "string",
+            "description": "Name of the food"
+          },
+          "carbohydrate": {
+            "type": "number",
+            "description": "Carbonohidrates content"
+          },
+          "protein": {
+            "type": "number",
+            "description": "Protein content",
+            "required": true
+          },
+          "fat": {
+            "type": "number",
+            "description": "Fat content"
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories content"
+          }
+        }
+      },
+
+      "WaterRequest": {
+        "type": "object",
+        "description": "Data for updating information about water intake.",
+        "properties": {
+          "water": {
+            "type": "number",
+            "description": "Value of water",
+            "required": true
+          },
+          "date": {
+            "type": "string",
+            "description": "The date of the water intake."
+          }
+        }
+      },
+      "WaterTodayResponse": {
+        "type": "object",
+        "description": "Data for updating information about water intake.",
+        "properties": {
           "status": {
             "type": "string",
-            "description": "Status message"
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "example": "27.12.2023"
+              },
+              "water": {
+                "type": "number",
+                "example": 550
+              }
+            }
+          }
+        }
+      },
+      "WaterResponse": {
+        "type": "object",
+        "description": "Data for updating information about water intake.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "example": "27.12.2023"
+              },
+              "water": {
+                "type": "number",
+                "example": 100
+              }
+            }
+          }
+        }
+      },
+      "Statistics": {
+        "type": "object",
+        "properties": {
+          "water": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "The current id."
+              },
+              "amount": {
+                "type": "number",
+                "description": "The value of the water intake."
+              }
+            }
+          },
+          "weight": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "The current id."
+              },
+              "amount": {
+                "type": "number",
+                "description": "The value of the water intake."
+              }
+            }
+          },
+          "calories": {
+            "type": "number",
+            "description": "The value of the calories."
+          }
+        }
+      },
+      "RecommendedFood": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the food"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Amount of the food"
+          },
+          "img": {
+            "type": "string",
+            "description": "Image of the food"
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories of the food"
+          },
+          "nutrition": {
+            "type": "object",
+            "properties": {
+              "carbohydrates": {
+                "type": "number",
+                "description": "Carbonohidrates of the food"
+              },
+              "protein": {
+                "type": "number",
+                "description": "Protein of the food"
+              },
+              "fat": {
+                "type": "number",
+                "description": "Fat of the food"
+              }
+            }
           }
         }
       }
